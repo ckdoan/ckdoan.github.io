@@ -1,5 +1,10 @@
+
 body{
-  background-color: #DB73FE;
+/*  background-color: #DB73FE; */
+  background-image: url(background.png);
+  margin: 0;
+  overflow:hidden;
+  font-family:sans-serif;
 }
 
 #title{
@@ -13,31 +18,55 @@ body{
 
 * {
     box-sizing: border-box;
+    font-family:cursive;
 }
 
-body {
-    margin: 0;
-
-}
 a{
   text-decoration: none;
 }
 
-
-
-.column :hover {
-  background: black;
-  opacity: 0.5;
-
+img
+{
+  max-width: 25%
 }
-
-/* Create four equal columns that floats next to each other */
 .column {
     float: left;
     width: 25%;
     padding: 10px;
-    height: 1000px; /* Should be removed. Only for demonstration */
+    height: 90%;
 }
+
+#col1{
+  background-image:url(puppy.png);
+  background-repeat:no-repeat;
+  background-size:contain;
+  background-position: center;
+  text-align: center;
+}
+
+#col2{
+  background-image:url(boat.png);
+  background-repeat:no-repeat;
+  background-size:contain;
+  background-position: center;
+  text-align: center;
+}
+
+#col3{
+  background-image:url(swan.png);
+  background-repeat:no-repeat;
+  background-size:contain;
+  background-position: center;
+  text-align: center;
+}
+#col4{
+  background-image:url(flower.png);
+  background-repeat:no-repeat;
+  background-size:contain;
+  background-position: center;
+  text-align: center;
+}
+
 
 /* Clear floats after the columns */
 .row:after {
