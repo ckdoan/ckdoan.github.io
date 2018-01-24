@@ -3,10 +3,13 @@ body{
 /*  background-color: #DB73FE; */
   background-image: url(background.png);
   margin: 0;
-  overflow:hidden;
+
 
 }
 
+h1{
+  font-size: 50px;
+}
 #title{
   text-align: center;
 }
@@ -31,21 +34,20 @@ img
 .column {
     float: left;
     width: 25%;
-    padding: 10px;
-    height: 90%;
+
+    height: 80%;
 }
 
 #col1{
-  background-image:url(puppy.png);
+  background-image:url(puppy2.png);
   background-repeat:no-repeat;
   background-size:contain;
   background-position: center;
   text-align: center;
-
 }
 
 #col2{
-  background-image:url(boat.png);
+  background-image:url(boat2.png);
   background-repeat:no-repeat;
   background-size:contain;
   background-position: center;
@@ -53,14 +55,14 @@ img
 }
 
 #col3{
-  background-image:url(swan.png);
+  background-image:url(swan2.png);
   background-repeat:no-repeat;
   background-size:contain;
   background-position: center;
   text-align: center;
 }
 #col4{
-  background-image:url(flower.png);
+  background-image:url(flower3.png);
   background-repeat:no-repeat;
   background-size:contain;
   background-position: center;
@@ -68,46 +70,62 @@ img
 }
 
 
-/* Clear floats after the columns */
+/* Clear floats after the columns
 .row:after {
     content: "";
     display: table;
     clear: both;
 }
-/*
-.semi-transparent-button {
-    background-color: #DB73FE;
-    opacity=0.5;
-    background-repeat:no-repeat;
+*/
 
-    cursor:pointer;
-    overflow: hidden;
-
-    width:100%;
-    height:100%;
-}*/
-
-.semi-transparent-button {
+.semi-transparent-button{
   display: block;
-  box-sizing: border-box;
-  margin: 0 auto;
-  padding: 8px;
-  width: 100%;
 
+  width:100%;
   height: 100%;
-  background: #fff; /* fallback color for old browsers */
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 8px;
-  color: #fff;
+  background: #e4e3e5;
+  background: rgba(228, 227, 229, 0.5);
+/*  color: #fff;*/
   text-align: center;
   text-decoration: none;
   letter-spacing: 1px;
   transition: all 0.3s ease-out;
+  overflow:hidden;
+  outline:none;
+  margin:0px;
 }
 .semi-transparent-button:hover,
 .semi-transparent-button:focus,
 .semi-transparent-button:active {
-  background: #fff;
-  color: #000;
+  background: #e9aaff;
+  background: rgba(233, 170, 255, 0.5);
   transition: all 0.5s ease-in;
+}
+
+ol{
+  float: left;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #e4e3e5;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #DB73FE;
+  color: white;
 }
