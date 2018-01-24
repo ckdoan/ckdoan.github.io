@@ -1,21 +1,25 @@
 
 body{
 /*  background-color: #DB73FE; */
-  background-image: url(background.png);
-  margin: 0;
-
-
+  background-image: url(https://s-media-cache-ak0.pinimg.com/originals/0e/9d/b6/0e9db60301a2619d0c8f7cfcbcaf4be6.jpg);
+   background-repeat:no-repeat;
+  background-size: cover;
+ 
+  
 }
 
-h1{
-  font-size: 50px;
-}
+
 #title{
   text-align: center;
+  /*font-family: 'Tangerine', serif;*/
+  font-family: 'Delius Swash Caps', cursive;
+  font-size: 70px;
+  text-shadow: 4px 4px 4px #aaa;
+  vertical-align: middle;
 }
 
 #header{
-font-family: Brush Script MT, cursive;
+font-family: Aclonica;
 font-size:60px;
 }
 
@@ -31,6 +35,7 @@ img
 {
   max-width: 25%
 }
+
 .column {
     float: left;
     width: 25%;
@@ -44,6 +49,7 @@ img
   background-size:contain;
   background-position: center;
   text-align: center;
+  font-family: 'Delius Unicase', cursive;
 }
 
 #col2{
