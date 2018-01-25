@@ -3,9 +3,7 @@ body{
   background-image: url(bg.png);
   /*background-repeat:no-repeat;
   background-size: cover;*/
-
 }
-
 
 #title{
   display:flex;
@@ -17,7 +15,7 @@ body{
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
-  font-family: Helvetica, sans-serif;
+font-family: 'Open Sans', sans-serif;
 }
 
 * {
@@ -43,50 +41,8 @@ a{
     display:table;
     height: 100%;
     vertical-align: middle;
-
-}
-/*
-#col1{
-  background-image:url(puppy2.png);
-  background-repeat:no-repeat;
-  background-size:contain;
-  background-position: center;
-  text-align: center;
 }
 
-#col2{
-  background-image:url(boat2.png);
-  background-repeat:no-repeat;
-  background-size:contain;
-  background-position: center;
-  text-align: center;
-}
-
-#col3{
-  background-image:url(swan2.png);
-  background-repeat:no-repeat;
-  background-size:contain;
-  background-position: center;
-  text-align: center;
-  color: white;
-}
-#col4{
-  background-image:url(flower3.png);
-  background-repeat:no-repeat;
-  background-size:contain;
-  background-position: center;
-  text-align: center;
-  vertical-align: middle;
-}
-
-
-/* Clear floats after the columns
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-*/
 #puppybutton, #swanbutton {
   display: flex;
   width:100%;
@@ -100,14 +56,14 @@ a{
   overflow:hidden;
   outline:none;
   color:white;
-  font-family: Helvetica, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   align-items: center;
   justify-content: center;
-
   padding: 0px;
   vertical-align: middle;
   overflow-x: hidden;
 }
+
 #boatbutton, #morebutton {
   display: flex;
   align-items: center;
@@ -120,10 +76,8 @@ a{
   background: rgba(228, 227, 229, 0.5);
   letter-spacing: 1px;
   transition: all 0.3s ease-out;
-  /*overflow:hidden;*/
-/*  outline:none;*/
   color:white;
-  font-family: Helvetica, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   padding: 0px;
   vertical-align: middle;
   overflow-x: hidden;
@@ -174,22 +128,82 @@ a{
       top: -20px;
 }
 
-table {
-    width:auto;
-    table-layout: auto;
-    text-align: left;
-    height:auto;
-    font-size: 1em;
-
+h2 {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  vertical-align: middle;
 }
 
-tr:nth-child(odd) {
-    background-color: #246E80;
-    padding: 15px;
+h3 {
+  margin: 0 0 30px;
+  font-size: 1.8em;
 }
-.puppy{
-  width:80%;
-  display:block;
-  text-align: right;
+
+.featured-blog {
+  margin: 0 60px;
+  padding: 100px 0;
+  border-top: 2px solid gainsboro;
+}
+
+.featured-blog-main {
+  background: rgba(0,0,0,0.3);
+}
+
+.blog-flex {
+  display: flex;
+  padding-bottom: 10px;
+  padding:10px;
+}
+
+.blog-flex:nth-child(odd){
+  background-color: #246E80;
+}
+.featured-blog p {
+}
+
+.info-container {
+  margin: 0 30px;
+  width: 50%;
     font-family: 'Open Sans', sans-serif;
+    font-size:1.2em;
+    flex-wrap: wrap;
+    padding:10px;
+}
+
+.blog-img {
+  width: 50%;
+}
+
+.blog-img img {
+  width: 100%;
+}
+
+@media screen and (max-width: 1000px) {
+
+  .blog-flex {
+    flex-direction: column;
+  }
+
+  .info-container {
+    width: 100%;
+  }
+
+  .blog-img {
+    width: 100%;
+  }
+}
+
+button {
+  background-color: #333;
+  padding:5px;
+  font-family: 'Open Sans', sans-serif;
+  font size: 1.2em;
+  width:100%;
+  color:white;
+  border: 1px solid #fff;
+  }
+
+button:hover{
+  background-color: #C286B4;
+  background-color: rgb(194, 134, 180, 0.5);
 }
