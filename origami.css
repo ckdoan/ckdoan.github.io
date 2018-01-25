@@ -31,7 +31,7 @@ a{
 
 .index{
   vertical-align: middle;
-  max-width: 30%
+  max-width: 50%
 }
 
 .whole{
@@ -87,18 +87,6 @@ a{
     clear: both;
 }
 */
-/*
-#puppybutton, #swanbutton{
-  background: #9b9b9b;
-  background: rgba(228, 227, 229, 0.5);
-}
-
-#boatbutton, #morebutton {
-  background: #707070;
-  background: rgba(112, 112, 112, 0.5);
-}*/
-/*.semi-transparent-button{*/
-
 #puppybutton, #swanbutton {
   display: flex;
   width:100%;
@@ -147,18 +135,15 @@ a{
 #morebutton:hover, #morebutton:focus, #morebutton:active
 {
   background: #343160;
-  background: rgba(52, 49, 96, 0.5);
-  transition: all 0.5s ease-in;
+  background: rgba(52, 49, 96, 0.7);
+  transition: all 0.4s ease-in;
   vertical-align: middle;
   overflow-x: hidden;
 }
 
-
-
 .topnav {
   overflow: hidden;
   background-color: #333;
-
 }
 
 .topnav a {
@@ -168,7 +153,6 @@ a{
   padding: 14px 30px;
   text-decoration: none;
   font-size: 17px;
-
 }
 
 .topnav a:hover {
@@ -189,21 +173,15 @@ a{
       left: 10%;
       top: -20px;
 }
+
 table {
-    width:100%;
+    width:auto;
     table-layout: auto;
     text-align: left;
     height:auto;
-    font-size: 1.5em;
-    border-collapse:collapse
+    font-size: 1em;
 
 }
-
-tr.puppytable {
-  border-bottom:1pt solid black;
-
-}
-
 
 tr:nth-child(odd) {
     background-color: #246E80;
