@@ -1,8 +1,7 @@
+/* Carolyn Doan 10122518 Lab B03*/
 
 body{
   background-image: url(bg.png);
-  /*background-repeat:no-repeat;
-  background-size: cover;*/
 }
 
 #title{
@@ -14,7 +13,7 @@ body{
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
-font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 * {
@@ -144,26 +143,26 @@ h4 {
   vertical-align: middle;
 }
 
-.featured-blog {
+.container {
   margin: 0 60px;
   padding: 100px 0;
   border-top: 2px solid gainsboro;
 }
 
-.featured-blog-main {
+.container-flex-main {
   background: rgba(0,0,0,0.3);
 }
 
-.blog-flex {
+.container-flex {
   display: flex;
   padding-bottom: 10px;
   padding:10px;
 }
 
-.blog-flex:nth-child(odd){
+.container-flex:nth-child(odd){
   background-color: #246E80;
 }
-.featured-blog p {
+.container p {
 }
 
 .info-container {
@@ -175,17 +174,17 @@ h4 {
     padding:10px;
 }
 
-.blog-img {
+.flex-img {
   width: 50%;
 }
 
-.blog-img img {
+.flex-img img {
   width: 100%;
 }
 
 @media screen and (max-width: 1000px) {
 
-  .blog-flex {
+  .container-flex {
     flex-direction: column;
   }
 
@@ -193,7 +192,7 @@ h4 {
     width: 100%;
   }
 
-  .blog-img {
+  .flex-img {
     width: 100%;
   }
 }
@@ -237,4 +236,9 @@ table tr:nth-child(odd) {
 table th {
     background-color: #333;
     color: white;
+}
+
+footer {
+  color:white;
+  text-align: center;
 }
