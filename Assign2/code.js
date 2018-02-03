@@ -81,7 +81,7 @@ function getStats(txt) {
     function check_if_palindrom(word){
       let lower = word.toLowerCase();
       let revword = lower.split("").reverse().join("");
-      print("lower: " + lower + " revword: " + revword);
+    //  print("lower: " + lower + " revword: " + revword);
       if(revword === lower){
         return true;
       }
@@ -101,23 +101,68 @@ function getStats(txt) {
       return listofwords;
     }
 
+    //sorts list alphabettically
+    function sortlist(arr){
+
+    }
+
+    function doesnotcontain(word, arr) {
+      for (i = 0; i < arr.length; i++) {
+          if (arr[i] === word) {
+              return true;
+          }
+      }
+      return false;
+    }
+
+    //https://stackoverflow.com/questions/1960473/get-all-unique-values-in-an-array-remove-duplicates
+    function onlyUnique(value, index, self) {
+      return self.indexOf(value) === index;
+    }
+
+
+
     function longestWords_func(txt){
-      let wordarray = txt.replace(/\W+/g, " ").trim().split(" ");
-      let longestwords = [];
-      let maxwordcount = 0 ;
-      for (i = 0; i<wordarray.length; i++){
-        if (wordarray[i].length === maxwordcount){
-          longestWords.push(wordarray[i]);
+
+      let wordlist = [];
+
+      let wordarray = txt.replace(/\W+/g, " ").trim().toLowerCase().split(" ");
+
+
+      let uniquearray = wordarray.filter(onlyUnique);
+
+      let sorted = uniquearray.sort(function(a, b){
+               return b.length - a.length;
+      });
+
+      print("sorted" + sorted);
+      let topten = [];
+      let temparr = [];
+      for (i = 0; i<sorted.length-1 ;i++ ){
+        if(sorted[i].length === sorted[i+1].length){
+          temparr.push(sorted[i])
+        }
+        //ie. only 1 element with that length
+        else if(sorted[i].length !== sorted[i+1].length){
+          temparr.push(sorted[i]);
+          let temp2 = temparr.sort();
+          Array.prototype.push.apply(topten, temp2);
+//          topten.push(temp2);
+          temparr = [];
+          temp2 = [];
         }
 
-        else if (wordarray[i].length > maxwordcount){
-          longestWords = [];
-          longestwords.push(wordarray[i]);
-          maxwordcount = wordarray[i].length;
-        }
       }
 
-      return longestwords;
+      let topten2 = [];
+      for ( i = 0 ; i<10; i++){
+        topten2.push(topten[i]);
+      }
+      return topten2;
+
+    }
+
+    function mostFrequentWords_func(txt){
 
     }
 
@@ -130,6 +175,6 @@ function getStats(txt) {
         averageWordLength: averageWordLength_func(txt),
         palindromes: palindromes_func(txt),
         longestWords: longestWords_func(txt),
-        mostFrequentWords: ["hello(7)", "world(1)"]
+        mostFrequentWords: "asd"
     };
 }
