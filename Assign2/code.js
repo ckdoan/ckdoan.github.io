@@ -28,14 +28,6 @@ function getStats(txt) {
       let temp2 = txt.replace(/\W+/g, " ").trim().split(" ");
   //    print("here" + temp2);
       let array1 = clean(temp2);
-  /*    let array1 = [];
-      for (i=0; i<temp2.length; i++){
-        //removing any empty elements from the array
-        if(temp2[i] && temp2[i] != ""){
-          array1.push(temp2[i]);
-        }
-      }
-*/
       return array1.length;
     }
 
@@ -72,7 +64,6 @@ function getStats(txt) {
 
     }
 
-
     function maxLineLength_func(txt){
       let temp1 = txt.split(/\r\n|\r|\n/);
       let maxcount = 0;
@@ -108,21 +99,17 @@ function getStats(txt) {
       return listofwords;
     }
 
-
     //https://stackoverflow.com/questions/1960473/get-all-unique-values-in-an-array-remove-duplicates
-
     //ASK TA
     function onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
     }
 
-
-
     function longestWords_func(txt){
       let wordarray = txt.replace(/\W+/g, " ").trim().toLowerCase().split(" ");
       let uniquearray = wordarray.filter(onlyUnique);
       let sorted = uniquearray.sort(function(a, b){
-               return b.length - a.length;
+        return b.length - a.length;
       });
       print("sorted longest is ", sorted);
       let topten = [];
@@ -187,7 +174,6 @@ function getStats(txt) {
       var items = Object.keys(wordcounts).map(function(key) {
           return [key, wordcounts[key]];
       });
-
       // Sort the array based on the second element
       items.sort(function(first, second) {
           return second[1] - first[1];
@@ -206,78 +192,48 @@ function getStats(txt) {
           let temp = [];
           return temp;
         }
-        
+
         if(i ===items.length-1 ){
-                newarr.push(items[i][0] + "(" + items[i][1] + ")");
-                newarr.sort();
-                final = final.concat(newarr);
-                break;
-              }
+          newarr.push(items[i][0] + "(" + items[i][1] + ")");
+          newarr.sort();
+          final = final.concat(newarr);
+          break;
+        }
 
         if (count ===0 ){
           freqcount = items[i][1];
   //        print('here' , freqcount);
-
           newarr.push(items[i][0] + "(" + items[i][1] + ")");
         }
         else if (count !==0){
-          print('in here');
+  //        print('in here');
           if(items[i][1] === freqcount){
             newarr.push(items[i][0]+ "(" + items[i][1] + ")");
-            print('same');
-
-      /*      if(i ===items.length-1 ){
-              newarr.push(items[i][0] + "(" + items[i][1] + ")");
-              newarr.sort();
-              final = final.concat(newarr);
-
-            } */
-
+    //        print('same');
           }
           else if (items[i][1] !== freqcount){
-    /*        if(i ===items.length-1 ){
-              newarr.push(items[i][0] + "(" + items[i][1] + ")");
-              newarr.sort();
-              final = final.concat(newarr);
-              break;
-            }*/
-            print('doff');
+    //        print('doff');
             newarr.sort();
             final = final.concat(newarr);
-            print('newarr ', newarr, 'final'+ final);
+    //        print('newarr ', newarr, 'final'+ final);
             freqcount= items[i][1]
             newarr = [];
             newarr.push(items[i][0] + "(" + items[i][1] + ")");
           }
-
-
         }
         count++;
-        print('out');
+//        print('out');
       }
-      print('fina', final);
+//      print('fina', final);
 
       let topten = [];
       for ( i = 0 ; i<final.length; i++){
         topten.push(final[i]);
-      //  print("heaf " + topten[i])
         if(i===9){
           break;
         }
       }
       return topten;
-
-
-
-
-
-
-
-//      print(temp);
-//      print("wordcount ");
-  //    print(wordcounts);
-
-
     }
 
     return {
