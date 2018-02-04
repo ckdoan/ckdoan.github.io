@@ -63,8 +63,9 @@ function getStats(txt) {
       let count = 0;
 
       for (i=0; i<line_array.length; i++){
-        let nChars_in_line = line_array[i].replace(/\W+/g, " ").trim()
-        if(nChars_func(nChars_in_line)>0){
+        let temp_array = line_array[i].replace(/\r\n|\r|\n\S+/g, " ").trim()
+    //      let temp_array = line_array[i].replace(/\W+/g, " ").trim()
+        if(nChars_func(temp_array)>0){
           count++;
         }
       }
@@ -81,7 +82,7 @@ function getStats(txt) {
       let numword = nWords_func(txt);
       print('nchar', numchar, 'numword', numword);
       print('division', (numchar/parseFloat(numword)));
-      if(isNaN(numchar/parseFloat(numword))){
+      if(isNaN(numchar/parseFloat(numword))){ //check if division is possible
         return 0;
       }
       else {
@@ -94,14 +95,14 @@ function getStats(txt) {
     */
     function maxLineLength_func(txt){
       let temp_array = txt.split(/\r\n|\r|\n/);
-      let maxcount = 0;
+      let max_count = 0;
       for (i=0; i<temp_array.length; i++){
         let amount = nChars_func(temp_array[i]);
-        if(amount > maxcount){
-          maxcount = amount;
+        if(amount > max_count){
+          max_count = amount;
         }
       }
-      return maxcount;
+      return max_count;
     }
 
     /* Purpose: This function checks if a word is a palindrome or not
@@ -126,6 +127,7 @@ function getStats(txt) {
        Inputs: text
     */
     function palindromes_func(txt){
+      txt = txt.replace(/_+/g, "");
       let listofwords = [];
       let temp_array = txt.replace(/\W+/g, " ").trim().split(" ");
       let uniquearray = temp_array.filter(onlyUnique);
@@ -150,9 +152,9 @@ function getStats(txt) {
     */
     function longestWords_func(txt){
       txt = txt.replace(/_+/g, "");
-      let wordarray = txt.replace(/\W+/g, " ").trim().toLowerCase().split(" ");
-      print('wordarray', wordarray)
-      let uniquearray = wordarray.filter(onlyUnique);
+      let temp_array = txt.replace(/\W+/g, " ").trim().toLowerCase().split(" ");
+      print('wordarray', temp_array)
+      let uniquearray = temp_array.filter(onlyUnique);
       let sorted = uniquearray.sort(function(a, b){
         return b.length - a.length;
       });
@@ -172,7 +174,6 @@ function getStats(txt) {
           return temp;
         }
         if(i ===sorted.length-1 ){
-
           temparr.push(sorted[i]);
           let temp2 = temparr.sort();
           topten = topten.concat(temp2);
@@ -238,7 +239,7 @@ function getStats(txt) {
       print('items', items);
       let count = 0 ;
       let newarr = [];
-      let final = [];
+      let result = [];
       let freqcount = 0 ;
       let index = 0 ;
       print('done');
@@ -266,7 +267,7 @@ function getStats(txt) {
             print('in else');
             newarr.sort();
           }
-          final = final.concat(newarr);
+          result = result.concat(newarr);
           break;
         }
 
@@ -284,8 +285,8 @@ function getStats(txt) {
           else if (items[i][1] !== freqcount){
             print('doff');
             newarr.sort();
-            final = final.concat(newarr);
-            print('newarr ', newarr, 'final'+ final);
+            result = result.concat(newarr);
+            print('newarr ', newarr, 'result'+ result);
             freqcount= items[i][1]
             newarr = [];
             newarr.push(items[i][0] + "(" + items[i][1] + ")");
@@ -294,11 +295,11 @@ function getStats(txt) {
         count++;
         print('out');
       }
-      print('fina', final);
+      print('fina', result);
 
       let topten = [];
-      for ( i = 0 ; i<final.length; i++){
-        topten.push(final[i]);
+      for ( i = 0 ; i<result.length; i++){
+        topten.push(result[i]);
         if(i===9){
           break;
         }
