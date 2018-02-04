@@ -1,59 +1,85 @@
 //
-// this is just a stub for a function you need to implement
+// Carolyn Doan 10122518 Lab B03
 //
 function getStats(txt) {
 
     print = console.log.bind(console);
+
 //    print = function() {};
 
+    /* Purpose: This function is used to remove empty elements from an array
+       Inputs: an array
+    */
     function clean(arr){
-      let newarr = [];
+      let newarray = [];
       for (i=0; i<arr.length; i++){
-         //removing any empty elements from the array
          if(arr[i] && arr[i] != ""){
-           newarr.push(arr[i]);
+           newarray.push(arr[i]);
          }
        }
-       return newarr;
+       return newarray;
     }
 
+    /* Purpose: This function returns the total number of words in the text
+       Inputs: text
+    */
     function nChars_func(txt){
       return txt.length;
     }
 
+    /* Purpose: This function returns the total number of characters in the text
+       Inputs: text
+    */
     function nWords_func(txt){
-      //finds all characters that are non-alphabets
-    //  let temp = txt.replace(/[^A-Za-z0-9]/, " ")
-  //    print("adgadg" + temp);
-      let temp2 = txt.replace(/\W+/g, " ").trim().split(" ");
-  //    print("here" + temp2);
-      let array1 = clean(temp2);
-      return array1.length;
+      //finds all characters that are non-alphabets or numbers
+      txt = txt.replace(/_+/g, "");
+      let temp_array = txt.replace(/\W+/g, " ").trim().split(" ");
+      print('txt', txt);
+
+
+
+      print("temoarray", temp_array)
+      let words_array = clean(temp_array);
+      return words_array.length;
     }
 
+    /* Purpose: This function returns the total number of lines in the text
+       Inputs: text
+    */
     function nLines_func(txt){
-       return txt.split(/\r\n|\r|\n/).length;
+      if(txt.length === 0 ){
+        return 0;
+      }
+      return txt.split(/\r\n|\r|\n/).length;
     }
 
+    /* Purpose: This function returns the total number of lines in the text that contain at least one visible character
+       Inputs: text
+    */
     function nNonEmptyLines_func(txt){
-      let temp1 = txt.split(/\r\n|\r|\n/);
-      print(temp1);
-      print(temp1.length);
+      let line_array = txt.split(/\r\n|\r|\n/);
+      print(line_array);
+      print(line_array.length);
       let count = 0;
 
-      for (i=0; i<temp1.length; i++){
-        let testvalue = temp1[i].replace(/\W+/g, " ").trim()
-        if(nChars_func(testvalue)>0){
+      for (i=0; i<line_array.length; i++){
+        let nChars_in_line = line_array[i].replace(/\W+/g, " ").trim()
+        if(nChars_func(nChars_in_line)>0){
           count++;
         }
       }
       return count;
     }
 
+    /* Purpose: This function returns the average word length in the text
+       Inputs: text
+    */
     function averageWordLength_func(txt){
-      let temp = txt.replace(/\W+/g, "").trim();
-      let numchar = nChars_func(temp);
+      txt = txt.replace(/_+/g, "");
+      let temp_array = txt.replace(/\W+/g, "").trim();
+      let numchar = nChars_func(temp_array);
       let numword = nWords_func(txt);
+      print('nchar', numchar, 'numword', numword);
       print('division', (numchar/parseFloat(numword)));
       if(isNaN(numchar/parseFloat(numword))){
         return 0;
@@ -61,14 +87,16 @@ function getStats(txt) {
       else {
         return numchar/parseFloat(numword);
       }
-
     }
 
+    /* Purpose: This function returns the length of the longest line in the text
+       Inputs: text
+    */
     function maxLineLength_func(txt){
-      let temp1 = txt.split(/\r\n|\r|\n/);
+      let temp_array = txt.split(/\r\n|\r|\n/);
       let maxcount = 0;
-      for (i=0; i<temp1.length; i++){
-        let amount = nChars_func(temp1[i]);
+      for (i=0; i<temp_array.length; i++){
+        let amount = nChars_func(temp_array[i]);
         if(amount > maxcount){
           maxcount = amount;
         }
@@ -76,8 +104,14 @@ function getStats(txt) {
       return maxcount;
     }
 
+    /* Purpose: This function checks if a word is a palindrome or not
+       Inputs: string
+    */
     function check_if_palindrom(word){
       let lower = word.toLowerCase();
+      if (lower.length <3){
+        return false;
+      }
       let revword = lower.split("").reverse().join("");
     //  print("lower: " + lower + " revword: " + revword);
       if(revword === lower){
@@ -88,36 +122,52 @@ function getStats(txt) {
       }
     }
 
+    /* Purpose: This function returns a list of unique palindromes in the text
+       Inputs: text
+    */
     function palindromes_func(txt){
       let listofwords = [];
-      let wordarray = txt.replace(/\W+/g, " ").trim().split(" ");
-      for (i = 0; i<wordarray.length; i++){
-        if (check_if_palindrom(wordarray[i]) && wordarray[i].length>1){
-          listofwords.push(wordarray[i].toLowerCase());
+      let temp_array = txt.replace(/\W+/g, " ").trim().split(" ");
+      let uniquearray = temp_array.filter(onlyUnique);
+      for (i = 0; i<uniquearray.length; i++){
+        if (check_if_palindrom(uniquearray[i]) && uniquearray[i].length>1){
+          listofwords.push(uniquearray[i].toLowerCase());
         }
       }
       return listofwords;
     }
 
-    //https://stackoverflow.com/questions/1960473/get-all-unique-values-in-an-array-remove-duplicates
     //ASK TA
+    /* Purpose: This function returns an array with only unique elements
+       Code taken from https://stackoverflow.com/questions/1960473/get-all-unique-values-in-an-array-remove-duplicates
+    */
     function onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
     }
 
+    /* Purpose: This function returns the 10 longest words in the text
+       Inputs: text
+    */
     function longestWords_func(txt){
+      txt = txt.replace(/_+/g, "");
       let wordarray = txt.replace(/\W+/g, " ").trim().toLowerCase().split(" ");
+      print('wordarray', wordarray)
       let uniquearray = wordarray.filter(onlyUnique);
       let sorted = uniquearray.sort(function(a, b){
         return b.length - a.length;
       });
-      print("sorted longest is ", sorted);
+//      print("sorted longest is ", sorted);
       let topten = [];
       let temparr = [];
 //      print ("sorted " + sorted  );
       for (i = 0; i<sorted.length  ;i++ ){
 //        print ("sorted[i]" + sorted[i]);
         if(sorted.length === 1){
+          if (sorted[0] !== ""){
+            let temp = [];
+            temp.push(sorted[0]);
+            return temp;
+          }
           let temp = [];
           return temp;
         }
@@ -136,7 +186,7 @@ function getStats(txt) {
     //      print("in here2 2");
           temparr.push(sorted[i]);
           let temp2 = temparr.sort();
-          print('temmp2 ', temp2);
+//          print('temmp2 ', temp2);
       //    Array.prototype.push.apply(topten, temp2); // ask TA
           topten = topten.concat(temp2);
 //          topten.push(temp2);
@@ -144,7 +194,7 @@ function getStats(txt) {
           temp2 = [];
         }
       }
-      print('topten longestmprev', topten);
+//      print('topten longestmprev', topten);
   //    print("loop end");
       let topten2 = [];
       for ( i = 0 ; i<topten.length; i++){
@@ -154,12 +204,18 @@ function getStats(txt) {
           break;
         }
       }
-      print('topten longest', topten2);
+  //    print('topten longest', topten2);
       return topten2;
 
     }
 
+
+
+    /* Purpose: This function returns the 10 most frequent words in the text
+       Inputs: text
+    */
     function mostFrequentWords_func(txt){
+      txt = txt.replace(/_+/g, "");
       let wordarray = txt.replace(/\W+/g, " ").trim().toLowerCase().split(" ");
       let wordcounts = {};
       for(i = 0; i < wordarray.length; i++){
@@ -186,45 +242,59 @@ function getStats(txt) {
       let freqcount = 0 ;
       let index = 0 ;
       print('done');
+
       for (i = 0; i<items.length; i++ ) {
         print('current item is ', items[i][0]);
         if(items.length === 1){
+          if (items[i][0] !== ""){
+            let temp = [items[i][0] + "(" + items[i][1] + ")"];
+            temp.push();
+            return temp;
+          }
           let temp = [];
           return temp;
         }
 
         if(i ===items.length-1 ){
-          newarr.push(items[i][0] + "(" + items[i][1] + ")");
-          newarr.sort();
+          print('in item-1')
+          print('newarr', newarr);
+          if(items[i][1] !== freqcount){
+            newarr.push(items[i][0] + "(" + items[i][1] + ")");
+          }
+          else{
+            newarr.push(items[i][0] + "(" + items[i][1] + ")");
+            print('in else');
+            newarr.sort();
+          }
           final = final.concat(newarr);
           break;
         }
 
         if (count ===0 ){
           freqcount = items[i][1];
-  //        print('here' , freqcount);
+          print('here' , freqcount);
           newarr.push(items[i][0] + "(" + items[i][1] + ")");
         }
         else if (count !==0){
-  //        print('in here');
+          print('in here');
           if(items[i][1] === freqcount){
             newarr.push(items[i][0]+ "(" + items[i][1] + ")");
-    //        print('same');
+            print('same');
           }
           else if (items[i][1] !== freqcount){
-    //        print('doff');
+            print('doff');
             newarr.sort();
             final = final.concat(newarr);
-    //        print('newarr ', newarr, 'final'+ final);
+            print('newarr ', newarr, 'final'+ final);
             freqcount= items[i][1]
             newarr = [];
             newarr.push(items[i][0] + "(" + items[i][1] + ")");
           }
         }
         count++;
-//        print('out');
+        print('out');
       }
-//      print('fina', final);
+      print('fina', final);
 
       let topten = [];
       for ( i = 0 ; i<final.length; i++){
