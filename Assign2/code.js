@@ -184,6 +184,10 @@ function getStats(txt) {
       let index = 0 ;
       print('done');
       for (i = 0; i<items.length; i++ ) {
+        print('current item is ', items[i][0]);
+
+
+
         if (count ===0 ){
           freqcount = items[i][1];
   //        print('here' , freqcount);
@@ -191,29 +195,29 @@ function getStats(txt) {
           newarr.push(items[i][0] + "(" + freqcount + ")");
         }
         else if (count !==0){
-  //        print('in here');
+          print('in here');
           if(items[i][1] === freqcount){
             newarr.push(items[i][0]+ "(" + freqcount + ")");
-  //          print('same');
+            print('same');
+
+            if(i ===items.length-1 ){
+
+              newarr.sort();
+              final = final.concat(newarr);
+
+            }
+
           }
           else if (items[i][1] !== freqcount){
-      //      print('doff');
+            print('doff');
             newarr.sort();
-        /*    if(index === 0){
-              final.push(newarr);
-              index++;
-            }
-            if(index !== 0){
-
-
-            }*/
-
             final = final.concat(newarr);
-      //      print('newarr ', newarr, 'final'+ final);
+            print('newarr ', newarr, 'final'+ final);
             freqcount= items[i][1]
             newarr = [];
             newarr.push(items[i][0] + "(" + freqcount + ")");
           }
+
         }
         count++;
         print('out');
@@ -229,6 +233,16 @@ function getStats(txt) {
         }
       }
       return topten;
+
+
+
+
+
+
+
+//      print(temp);
+//      print("wordcount ");
+  //    print(wordcounts);
 
 
     }
