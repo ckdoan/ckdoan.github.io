@@ -62,7 +62,14 @@ function getStats(txt) {
       let temp = txt.replace(/\W+/g, "").trim();
       let numchar = nChars_func(temp);
       let numword = nWords_func(txt);
-      return numchar/parseFloat(numword);
+      print('division', (numchar/parseFloat(numword)));
+      if(isNaN(numchar/parseFloat(numword))){
+        return 0;
+      }
+      else {
+        return numchar/parseFloat(numword);
+      }
+
     }
 
 
@@ -117,14 +124,21 @@ function getStats(txt) {
       let sorted = uniquearray.sort(function(a, b){
                return b.length - a.length;
       });
-
+      print("sorted longest is ", sorted);
       let topten = [];
       let temparr = [];
 //      print ("sorted " + sorted  );
       for (i = 0; i<sorted.length  ;i++ ){
 //        print ("sorted[i]" + sorted[i]);
+        if(sorted.length === 1){
+          let temp = [];
+          return temp;
+        }
         if(i ===sorted.length-1 ){
-          topten.push(sorted[i])
+
+          temparr.push(sorted[i]);
+          let temp2 = temparr.sort();
+          topten = topten.concat(temp2);
         }
         else if(sorted[i].length === sorted[i+1].length){
           temparr.push(sorted[i])
@@ -135,6 +149,7 @@ function getStats(txt) {
     //      print("in here2 2");
           temparr.push(sorted[i]);
           let temp2 = temparr.sort();
+          print('temmp2 ', temp2);
       //    Array.prototype.push.apply(topten, temp2); // ask TA
           topten = topten.concat(temp2);
 //          topten.push(temp2);
@@ -142,6 +157,7 @@ function getStats(txt) {
           temp2 = [];
         }
       }
+      print('topten longestmprev', topten);
   //    print("loop end");
       let topten2 = [];
       for ( i = 0 ; i<topten.length; i++){
@@ -151,6 +167,7 @@ function getStats(txt) {
           break;
         }
       }
+      print('topten longest', topten2);
       return topten2;
 
     }
@@ -185,38 +202,54 @@ function getStats(txt) {
       print('done');
       for (i = 0; i<items.length; i++ ) {
         print('current item is ', items[i][0]);
-
-
+        if(items.length === 1){
+          let temp = [];
+          return temp;
+        }
+        
+        if(i ===items.length-1 ){
+                newarr.push(items[i][0] + "(" + items[i][1] + ")");
+                newarr.sort();
+                final = final.concat(newarr);
+                break;
+              }
 
         if (count ===0 ){
           freqcount = items[i][1];
   //        print('here' , freqcount);
 
-          newarr.push(items[i][0] + "(" + freqcount + ")");
+          newarr.push(items[i][0] + "(" + items[i][1] + ")");
         }
         else if (count !==0){
           print('in here');
           if(items[i][1] === freqcount){
-            newarr.push(items[i][0]+ "(" + freqcount + ")");
+            newarr.push(items[i][0]+ "(" + items[i][1] + ")");
             print('same');
 
-            if(i ===items.length-1 ){
-
+      /*      if(i ===items.length-1 ){
+              newarr.push(items[i][0] + "(" + items[i][1] + ")");
               newarr.sort();
               final = final.concat(newarr);
 
-            }
+            } */
 
           }
           else if (items[i][1] !== freqcount){
+    /*        if(i ===items.length-1 ){
+              newarr.push(items[i][0] + "(" + items[i][1] + ")");
+              newarr.sort();
+              final = final.concat(newarr);
+              break;
+            }*/
             print('doff');
             newarr.sort();
             final = final.concat(newarr);
             print('newarr ', newarr, 'final'+ final);
             freqcount= items[i][1]
             newarr = [];
-            newarr.push(items[i][0] + "(" + freqcount + ")");
+            newarr.push(items[i][0] + "(" + items[i][1] + ")");
           }
+
 
         }
         count++;
