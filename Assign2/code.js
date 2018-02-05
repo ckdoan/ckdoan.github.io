@@ -32,7 +32,7 @@ function getStats(txt) {
     */
     function nWords_func(txt){
       //finds all characters that are non-alphabets or numbers
-      txt = txt.replace(/_+/g, "");
+      txt = txt.replace(/_+/g, " ");
       let temp_array = txt.replace(/\W+/g, " ").trim().split(" ");
       print('txt', txt);
 
@@ -76,7 +76,7 @@ function getStats(txt) {
        Inputs: text
     */
     function averageWordLength_func(txt){
-      txt = txt.replace(/_+/g, "");
+      txt = txt.replace(/_+/g, " ");
       let temp_array = txt.replace(/\W+/g, "").trim();
       let numchar = nChars_func(temp_array);
       let numword = nWords_func(txt);
@@ -127,7 +127,7 @@ function getStats(txt) {
        Inputs: text
     */
     function palindromes_func(txt){
-      txt = txt.replace(/_+/g, "");
+      txt = txt.replace(/_+/g, " ");
       let listofwords = [];
       let temp_array = txt.replace(/\W+/g, " ").trim().split(" ");
       let uniquearray = temp_array.filter(onlyUnique);
@@ -151,7 +151,7 @@ function getStats(txt) {
        Inputs: text
     */
     function longestWords_func(txt){
-      txt = txt.replace(/_+/g, "");
+      txt = txt.replace(/_+/g, " ");
       let temp_array = txt.replace(/\W+/g, " ").trim().toLowerCase().split(" ");
       print('wordarray', temp_array)
       let uniquearray = temp_array.filter(onlyUnique);
@@ -216,7 +216,7 @@ function getStats(txt) {
        Inputs: text
     */
     function mostFrequentWords_func(txt){
-      txt = txt.replace(/_+/g, "");
+      txt = txt.replace(/_+/g, " ");
       let wordarray = txt.replace(/\W+/g, " ").trim().toLowerCase().split(" ");
       let wordcounts = {};
       for(i = 0; i < wordarray.length; i++){
