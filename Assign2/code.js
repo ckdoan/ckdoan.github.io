@@ -280,6 +280,7 @@ function getStats(txt) {
           print('in here');
           if(items[i][1] === freqcount){
             newarr.push(items[i][0]+ "(" + items[i][1] + ")");
+			newarr.sort();
             print('same');
           }
           else if (items[i][1] !== freqcount){
