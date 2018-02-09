@@ -311,7 +311,7 @@ function getStats(txt) {
         nChars: nChars_func(txt),
         nWords: nWords_func(txt),
         nLines: nLines_func(txt),
-        nNonEmptyLines: nNonEmptyLines_func(txt),
+        nonEmptyLines: nNonEmptyLines_func(txt),
         maxLineLength: maxLineLength_func(txt),
         averageWordLength: averageWordLength_func(txt),
         palindromes: palindromes_func(txt),
