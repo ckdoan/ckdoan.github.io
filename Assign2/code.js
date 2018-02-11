@@ -3,10 +3,6 @@
 //
 function getStats(txt) {
 
-    print = console.log.bind(console);
-
-//    print = function() {};
-
     /* Purpose: This function is used to remove empty elements from an array
        Inputs: an array
     */
@@ -31,14 +27,10 @@ function getStats(txt) {
        Inputs: text
     */
     function nWords_func(txt){
-      //finds all characters that are non-alphabets or numbers
+      //removes underscores from the text
       txt = txt.replace(/_+/g, " ");
+      //finds all characters that are non-alphabets or numbers
       let temp_array = txt.replace(/\W+/g, " ").trim().split(" ");
-      print('txt', txt);
-
-
-
-      print("temoarray", temp_array)
       let words_array = clean(temp_array);
       return words_array.length;
     }
@@ -58,13 +50,10 @@ function getStats(txt) {
     */
     function nNonEmptyLines_func(txt){
       let line_array = txt.split(/\r\n|\r|\n/);
-      print(line_array);
-      print(line_array.length);
       let count = 0;
 
       for (i=0; i<line_array.length; i++){
         let temp_array = line_array[i].replace(/\r\n|\r|\n\S+/g, " ").trim()
-    //      let temp_array = line_array[i].replace(/\W+/g, " ").trim()
         if(nChars_func(temp_array)>0){
           count++;
         }
@@ -80,8 +69,6 @@ function getStats(txt) {
       let temp_array = txt.replace(/\W+/g, "").trim();
       let numchar = nChars_func(temp_array);
       let numword = nWords_func(txt);
-      print('nchar', numchar, 'numword', numword);
-      print('division', (numchar/parseFloat(numword)));
       if(isNaN(numchar/parseFloat(numword))){ //check if division is possible
         return 0;
       }
@@ -110,11 +97,12 @@ function getStats(txt) {
     */
     function check_if_palindrom(word){
       let lower = word.toLowerCase();
+
       if (lower.length <3){
         return false;
       }
       let revword = lower.split("").reverse().join("");
-    //  print("lower: " + lower + " revword: " + revword);
+
       if(revword === lower){
         return true;
       }
@@ -139,9 +127,8 @@ function getStats(txt) {
       return listofwords;
     }
 
-    //ASK TA
     /* Purpose: This function returns an array with only unique elements
-       Code taken from https://stackoverflow.com/questions/1960473/get-all-unique-values-in-an-array-remove-duplicates
+       The code for this function was taken from https://stackoverflow.com/questions/1960473/get-all-unique-values-in-an-array-remove-duplicates
     */
     function onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
@@ -153,17 +140,15 @@ function getStats(txt) {
     function longestWords_func(txt){
       txt = txt.replace(/_+/g, " ");
       let temp_array = txt.replace(/\W+/g, " ").trim().toLowerCase().split(" ");
-      print('wordarray', temp_array)
       let uniquearray = temp_array.filter(onlyUnique);
       let sorted = uniquearray.sort(function(a, b){
         return b.length - a.length;
       });
-//      print("sorted longest is ", sorted);
+
       let topten = [];
       let temparr = [];
-//      print ("sorted " + sorted  );
+
       for (i = 0; i<sorted.length  ;i++ ){
-//        print ("sorted[i]" + sorted[i]);
         if(sorted.length === 1){
           if (sorted[0] !== ""){
             let temp = [];
@@ -173,44 +158,32 @@ function getStats(txt) {
           let temp = [];
           return temp;
         }
-        if(i ===sorted.length-1 ){
+        if(i === sorted.length-1 ){
           temparr.push(sorted[i]);
           let temp2 = temparr.sort();
           topten = topten.concat(temp2);
         }
         else if(sorted[i].length === sorted[i+1].length){
           temparr.push(sorted[i])
-//          print("in here");
         }
-        //ie. only 1 element with that length
         else if(sorted[i].length !== sorted[i+1].length ){
-    //      print("in here2 2");
           temparr.push(sorted[i]);
           let temp2 = temparr.sort();
-//          print('temmp2 ', temp2);
-      //    Array.prototype.push.apply(topten, temp2); // ask TA
           topten = topten.concat(temp2);
-//          topten.push(temp2);
           temparr = [];
           temp2 = [];
         }
       }
-//      print('topten longestmprev', topten);
-  //    print("loop end");
-      let topten2 = [];
+
+      let finaltopten = [];
       for ( i = 0 ; i<topten.length; i++){
-        topten2.push(topten[i]);
-      //  print("heaf " + topten[i])
+        finaltopten.push(topten[i]);
         if(i===9){
           break;
         }
       }
-  //    print('topten longest', topten2);
-      return topten2;
-
+      return finaltopten;
     }
-
-
 
     /* Purpose: This function returns the 10 most frequent words in the text
        Inputs: text
@@ -220,32 +193,29 @@ function getStats(txt) {
       let wordarray = txt.replace(/\W+/g, " ").trim().toLowerCase().split(" ");
       let wordcounts = {};
       for(i = 0; i < wordarray.length; i++){
-          if (  wordcounts[wordarray[i]] ===undefined){
+          if (  wordcounts[wordarray[i]] === undefined){
             wordcounts[wordarray[i]] = 1;
           }
           else{
             wordcounts[wordarray[i]] = wordcounts[wordarray[i]] + 1;
           }
       }
-      /* https://stackoverflow.com/questions/25500316/sort-a-dictionary-by-value-in-javascript*/
+      /* The function below was taken from https://stackoverflow.com/questions/25500316/sort-a-dictionary-by-value-in-javascript*/
       var items = Object.keys(wordcounts).map(function(key) {
           return [key, wordcounts[key]];
       });
-      // Sort the array based on the second element
-      items.sort(function(first, second) {
-          return second[1] - first[1];
+
+      items.sort(function(word, freq) {
+          return freq[1] - word[1];
       });
 
-      print('items', items);
       let count = 0 ;
       let newarr = [];
       let result = [];
       let freqcount = 0 ;
       let index = 0 ;
-      print('done');
 
       for (i = 0; i<items.length; i++ ) {
-        print('current item is ', items[i][0]);
         if(items.length === 1){
           if (items[i][0] !== ""){
             let temp = [items[i][0] + "(" + items[i][1] + ")"];
@@ -257,14 +227,11 @@ function getStats(txt) {
         }
 
         if(i ===items.length-1 ){
-          print('in item-1')
-          print('newarr', newarr);
           if(items[i][1] !== freqcount){
             newarr.push(items[i][0] + "(" + items[i][1] + ")");
           }
           else{
             newarr.push(items[i][0] + "(" + items[i][1] + ")");
-            print('in else');
             newarr.sort();
           }
           result = result.concat(newarr);
@@ -273,30 +240,23 @@ function getStats(txt) {
 
         if (count ===0 ){
           freqcount = items[i][1];
-          print('here' , freqcount);
           newarr.push(items[i][0] + "(" + items[i][1] + ")");
         }
         else if (count !==0){
-          print('in here');
           if(items[i][1] === freqcount){
             newarr.push(items[i][0]+ "(" + items[i][1] + ")");
-			newarr.sort();
-            print('same');
+			      newarr.sort();
           }
           else if (items[i][1] !== freqcount){
-            print('doff');
             newarr.sort();
             result = result.concat(newarr);
-            print('newarr ', newarr, 'result'+ result);
             freqcount= items[i][1]
             newarr = [];
             newarr.push(items[i][0] + "(" + items[i][1] + ")");
           }
         }
         count++;
-        print('out');
       }
-      print('fina', result);
 
       let topten = [];
       for ( i = 0 ; i<result.length; i++){
