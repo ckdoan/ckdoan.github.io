@@ -1,0 +1,13 @@
+{
+    "name": "Seng513-Assignment-3",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "express": "^4.16.2",
+        "socket.io": "^2.0.4"
+    },
+    "devDependencies": {
+        "nodemon": "^1.15.1"
+    }
+}
