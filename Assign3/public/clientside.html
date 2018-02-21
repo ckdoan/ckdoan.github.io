@@ -10,17 +10,28 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="clientside.js"></script>
     <link rel="stylesheet" type="text/css" href="clientside.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <h1 id= "whoiam"></h1>
-    <div id="currentusers"></div>
-    <div><ul id="messages"></ul></div>
-
-    <form id="send-message" action="">
-        <input id="m"></input>
-        <input type="submit"></input>
-    </form>
+    <h1 id= "whoiam" style: "text-align:center"></h1>
+    <div class='container'>
+        <div class ='chatbox'>
+            <div id="currentusers"></div>
+            <div><ul id="messages"></ul></div>
+            <div>
+                <form id="send-message" action="">
+                    <input id="m"></input>
+                    <input type="submit"></input>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
+
+
 
 </html>

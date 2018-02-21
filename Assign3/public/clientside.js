@@ -1,13 +1,12 @@
 let socket = io();
 let username = [];
 
-
 $(function() {
     var socket = io();
     let thisusername = 'Guest' + Math.round(Math.random() * 10000); //Generate a random nick for new clients
     let servercurrenttime;
 
-    socket.emit('new user', thisusername, function(data) {
+    socket.emit('new user', thisusername, function(data) { //sending server the nickname
         if (data) {
 
         } else {
@@ -35,8 +34,8 @@ $(function() {
 
         if (data.nick === thisusername) {
             console.log('in here');
-            let htmlCode = '<p id="' + data.nick + '" style="color: red; font-weight: bold;">'+ data.time + ' ' + data.nick + ': ' + data.msg + ' </p>';
-        //     $('#messages').append($('<li>').text(msg));
+            let htmlCode = '<p id="' + data.nick + '" style="color: red; font-weight: bold;">' + data.time + ' ' + data.nick + ': ' + data.msg + ' </p>';
+            //     $('#messages').append($('<li>').text(msg));
 
             $('#messages').append(htmlCode);
             // $('#'+data.nick).css({
@@ -44,33 +43,33 @@ $(function() {
             //     'background-color': 'pink'
             //
             // });
-        //    $('#messages').append(data.time + ' ' + data.nick + ' ' + data.msg + "<br/>")
+            //    $('#messages').append(data.time + ' ' + data.nick + ' ' + data.msg + "<br/>")
             // .css({
             //     "color": "red",
             //     "font-weight": "bold"
             // });;
+            $('#messages').scrollTop($('#messages')[0].scrollHeight);
+
         } else { // overrides D:
             // $('#messages').append(htmlCode);
             // $('#'+data.nick).css({
             //     'color': 'red'
             // });
             console.log('wellll');
-            let htmlCode2 = '<p id="notme">'+ data.time + ' ' + data.nick + ': ' + data.msg + ' </p>';
+            let htmlCode2 = '<p id="notme">' + data.time + ' ' + data.nick + ': ' + data.msg + ' </p>';
 
             $('#messages').append(htmlCode2);
             $('#notme').css({
                 'color': 'black'
             });
-           //
-           // $('#messages').append(data.time + ' ' + data.nick + ' ' + data.msg + "<br/>").css({
-           //      "color": "black"
-           //  });;;
+            $('#messages').scrollTop($('#messages')[0].scrollHeight);
+            //
+            // $('#messages').append(data.time + ' ' + data.nick + ' ' + data.msg + "<br/>").css({
+            //      "color": "black"
+            //  });;;
         }
 
-        window.scrollTo(0, document.body.scrollHeight);
-
-
-
+    //    window.scrollTo(0, document.body.scrollHeight);
     });
 
     socket.on('usernames', function(nicknames) {
