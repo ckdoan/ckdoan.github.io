@@ -29,10 +29,14 @@ $(function() {
 
     socket.on('new message', function(data) {
         console.log('datanick is ' + data.nick + 'usernamethis is ' + thisusername);
+        if(data.msg === "")
+        {
+            return; 
+        }
         if (data.nick === thisusername){
             $('#messages').append(data.time + ' ' + data.nick  + ' ' +data.msg + "<br/>").css({"color": "red", "font-weight": "bold"});;
         }
-        else { // overrides D: 
+        else { // overrides D:
             $('#messages').append(data.time + ' ' + data.nick  + ' ' +data.msg + "<br/>").css({"color": "black"});;;
         }
 
