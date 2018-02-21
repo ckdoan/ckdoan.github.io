@@ -9,6 +9,7 @@ let io = require('socket.io')(http);
 let port = process.env.PORT || 3000;
 
 let nicknames = [];
+let currenttime = new Date().toLocaleTimeString();
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -32,8 +33,9 @@ io.on('connection', function(socket) {
             updateNicknames();
         }
     });
-    socket.on('chat message', function(msg) {
-        io.emit('new message', msg);
+    socket.on('chat message', function(data) {
+        io.emit('new message', {msg:data, nick:socket.nickname, time: currenttime});
+        // io.emit('currenttime', currenttime);
     });
 
     function updateNicknames() {

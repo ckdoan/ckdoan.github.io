@@ -34,9 +34,8 @@
 
 #currentusers{
     background-color: lightgreen;
-
-
-    float:left;
+    display:block;
+    padding: 2px; 
 }
   #messages {
       list-style-type: none;
