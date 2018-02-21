@@ -4,7 +4,7 @@ let username = [];
 
 $(function() {
     var socket = io();
-    let thisusername = 'Guest' + Math.round(Math.random() * 10000);
+    let thisusername = 'Guest' + Math.round(Math.random() * 10000); //Generate a random nick for new clients
     let servercurrenttime;
 
     socket.emit('new user', thisusername, function(data) {
@@ -15,7 +15,7 @@ $(function() {
         }
     });
 
-    socket.on('currenttime', function(data){
+    socket.on('currenttime', function(data) {
         servercurrenttime = data;
     });
 
@@ -29,15 +29,42 @@ $(function() {
 
     socket.on('new message', function(data) {
         console.log('datanick is ' + data.nick + 'usernamethis is ' + thisusername);
-        if(data.msg === "")
-        {
-            return; 
+        if (data.msg === "") {
+            return;
         }
-        if (data.nick === thisusername){
-            $('#messages').append(data.time + ' ' + data.nick  + ' ' +data.msg + "<br/>").css({"color": "red", "font-weight": "bold"});;
-        }
-        else { // overrides D:
-            $('#messages').append(data.time + ' ' + data.nick  + ' ' +data.msg + "<br/>").css({"color": "black"});;;
+
+        if (data.nick === thisusername) {
+            console.log('in here');
+            let htmlCode = '<p id="' + data.nick + '" style="color: red; font-weight: bold;">'+ data.time + ' ' + data.nick + ': ' + data.msg + ' </p>';
+        //     $('#messages').append($('<li>').text(msg));
+
+            $('#messages').append(htmlCode);
+            // $('#'+data.nick).css({
+            //     'color': 'red',
+            //     'background-color': 'pink'
+            //
+            // });
+        //    $('#messages').append(data.time + ' ' + data.nick + ' ' + data.msg + "<br/>")
+            // .css({
+            //     "color": "red",
+            //     "font-weight": "bold"
+            // });;
+        } else { // overrides D:
+            // $('#messages').append(htmlCode);
+            // $('#'+data.nick).css({
+            //     'color': 'red'
+            // });
+            console.log('wellll');
+            let htmlCode2 = '<p id="notme">'+ data.time + ' ' + data.nick + ': ' + data.msg + ' </p>';
+
+            $('#messages').append(htmlCode2);
+            $('#notme').css({
+                'color': 'black'
+            });
+           //
+           // $('#messages').append(data.time + ' ' + data.nick + ' ' + data.msg + "<br/>").css({
+           //      "color": "black"
+           //  });;;
         }
 
         window.scrollTo(0, document.body.scrollHeight);
@@ -48,8 +75,8 @@ $(function() {
 
     socket.on('usernames', function(nicknames) {
         //username.push(thisusername);
-    //    console.log('username', username);
-    $('#whoiam').html("Welcome " + thisusername);
+        //    console.log('username', username);
+        $('#whoiam').html("Welcome " + thisusername);
         $('#currentusers').html("Current users: " + nicknames + "<br/>");
     });
 });
