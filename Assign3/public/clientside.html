@@ -17,16 +17,22 @@
 </head>
 
 <body>
-    <h1 id= "whoiam" style: "text-align:center"></h1>
+    <h1 id="whoiam" style: "text-align:center"></h1>
     <div class='container'>
-        <div class ='chatbox'>
-            <div id="currentusers"></div>
-            <div><ul id="messages"></ul></div>
-            <div>
-                <form id="send-message" action="">
-                    <input id="m"></input>
-                    <input type="submit"></input>
-                </form>
+        <div class='chatbox'>
+            <div class="row">
+                <div class="col-md-8"><ul id="messages"></ul></div>
+                <div class="col-md-4" id="currentusers"></div>
+            </div>
+            <div class="row">
+                <div class='col-md-12'>
+                    <form id="send-message" action="">
+                        <div > <input id="m" placeholder='Type Message Here' autocomplete="off"></input>
+                        </div>
+                        <div ><input type="submit"></input>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

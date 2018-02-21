@@ -13,14 +13,17 @@
   form {
       /* background: #000; */
       padding: 3px;
-      position: fixed;
+      /* position: fixed; */
       bottom: 0;
       width: 100%;
-
+  height:auto;
   }
 
+#m {
+    width: 75%;
+}
   form input #m {
-      border: 0;
+
       padding: 10px;
 
       margin-right: .5%;
@@ -32,13 +35,16 @@
       border: none;
       padding: 10px;
       float:right;
-  } */
+  }
+
+
 
 .container {
     background-color: lightblue;
-    height: 106vh;
-    width: 100vw;
-    overflow: auto;
+    /* height: 106vh;
+    width: 100vw; */
+    height: 80%;
+    /* overflow: auto; */
 }
 
 .chatbox {
@@ -55,9 +61,24 @@
 
 }
 
+.col-md-12{
+    height: 100;
+    padding: 2px;
+    display:block;
+    position:absolute;
+    bottom:0;
+     overflow:   auto;
+     background-color: lightpink;
+}
+/* #send-message {
+    width: 100%;
+    overflow:   auto;
+     position:   absolute;
+     bottom:     0;
+} */
 #currentusers{
     background-color: lightgreen;
-    width: 25%;
+    /* width: 25%; */
     height: 100%;
     padding: 2px;
     float:right;
@@ -66,15 +87,15 @@
   #messages {
       list-style-type: none;
       margin: 0;
-      padding: 0;
+      /* padding: 0; */
       background-color: lightblue;
-
+     width: 97%;
 
       overflow:   auto;
        position:   absolute;
        bottom:     0;
-       max-height: 400px;
-  }
+        max-height: 100%;
+      }
 
   #messages li {
       padding: 5px 10px;
