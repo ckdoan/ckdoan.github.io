@@ -32,6 +32,12 @@
       padding: 10px;
   }
 
+#currentusers{
+    background-color: lightgreen;
+
+
+    float:left;
+}
   #messages {
       list-style-type: none;
       margin: 0;
