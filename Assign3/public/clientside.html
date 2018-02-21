@@ -8,14 +8,15 @@
     <link rel="shortcut icon" href="">
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-	<script src="stuff.js"></script>
+    <script src="clientside.js"></script>
     <link rel="stylesheet" type="text/css" href="clientside.css" />
 </head>
 
 <body>
     <ul id="messages"></ul>
-    <form action="">
-        <input id="m" autocomplete="off" /><button>Send</button>
+    <form id="send-message" action="">
+        <input id="m"></input>
+        <input type="submit"></input>
     </form>
 </body>
 
