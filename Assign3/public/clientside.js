@@ -1,4 +1,4 @@
-let socket = io();
+// let socket = io();
 let username = [];
 
 $(function() {
@@ -68,7 +68,7 @@ $(function() {
         console.log('datanick is ' + data.nick + 'usernamethis is ' + thisusername);
         console.log('data color is ' + data.color);
         console.log('done');
-        if (data.msg === "") {
+        if (data.msg.trim() === "") {
             return;
         }
 

@@ -29,7 +29,7 @@ form {
     overflow: hidden;
 }
 
-#subbutton {
+button {
     padding: 30px;
     width: 30%;
 }
