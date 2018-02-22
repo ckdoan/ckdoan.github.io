@@ -5,6 +5,10 @@ $(function() {
     var socket = io();
     let thisusername = 'Guest' + Math.round(Math.random() * 10000); //Generate a random nick for new clients
     let servercurrenttime;
+    let usercolor;
+    //let usercolor = 'red'; //default is red
+    // let usercolor = function random_hex(){
+    //     return '#' + Math.floor(Math.random()*16777215).toString(16);}();
 
     socket.emit('new user', thisusername, function(data) { //sending server the nickname
         if (data) {
@@ -14,9 +18,13 @@ $(function() {
         }
     });
 
-    socket.on('currenttime', function(data) {
-        servercurrenttime = data;
-    });
+    // socket.emit('user color', usercolor, function (data) {
+    //
+    // });
+    // //
+    // socket.on('currenttime', function(data) {
+    //     servercurrenttime = data;
+    // });
 
     $('#send-message').submit(function(e) {
         e.preventDefault();
@@ -26,42 +34,55 @@ $(function() {
         return false;
     });
 
+    socket.on('changed color', function(data){
+        // if(usercolor === ''){
+        //     usercolor === data.color;
+        // }
+         console.log('user color is ' + usercolor);
+        if (data.color !== usercolor) {
+    //    if (data.msg.toLowerCase().includes('/color')) {
+            console.log('why am i here> ugh ');
+            usercolor = data.color;
+            htmlCode = '<p> >>>>> Your nick color has changed to ' + data.color + '</p>';
+        }
+        // $('#messages').append(htmlCode);
+        // $('#messages').scrollTop($('#messages')[0].scrollHeight);
+    });
+
     socket.on('new message', function(data) {
+        let htmlCode
+        console.log('data is ' + data.msg);
         console.log('datanick is ' + data.nick + 'usernamethis is ' + thisusername);
+        console.log('data color is ' + data.color);
+        console.log('done');
         if (data.msg === "") {
             return;
         }
 
         if (data.nick === thisusername) {
             console.log('in here');
-            let htmlCode = '<p id="' + data.nick + '" style="color: red; font-weight: bold;">' + data.time + ' ' + data.nick + ': ' + data.msg + ' </p>';
-            //     $('#messages').append($('<li>').text(msg));
 
+            if (data.msg.toLowerCase().includes('/color') ) {
+                usercolor = data.color;
+                htmlCode = '<p> >>>>> Your nick color has changed to ' + data.color + '</p>';
+            }
+            //usercolor = data.color;
+            else {
+                htmlCode = '<p> <span id="' + data.nick + '" style="color: ' + data.color + '"; font-weight: bold;">' + data.time + ' ' + data.nick + '</span> <span id="text" "style="color: black;" >' + ': ' + data.msg + '</span> </p>';
+                //     $('#messages').append($('<li>').text(msg));
+                console.log('htmlcode is ' +  htmlCode);
+            }
             $('#messages').append(htmlCode);
-            // $('#'+data.nick).css({
-            //     'color': 'red',
-            //     'background-color': 'pink'
-            //
-            // });
-            //    $('#messages').append(data.time + ' ' + data.nick + ' ' + data.msg + "<br/>")
-            // .css({
-            //     "color": "red",
-            //     "font-weight": "bold"
-            // });;
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
-
         } else { // overrides D:
-            // $('#messages').append(htmlCode);
-            // $('#'+data.nick).css({
-            //     'color': 'red'
-            // });
-            console.log('wellll');
-            let htmlCode2 = '<p id="notme">' + data.time + ' ' + data.nick + ': ' + data.msg + ' </p>';
 
+            console.log('wellll');
+            //    let htmlCode2 = '<p id="notme">' + data.time + ' ' + data.nick + ': ' + data.msg + ' </p>';
+            let htmlCode2 = '<p> <span id="' + data.nick + '" style="color: ' + data.color + '"; font-weight: bold;">' + data.time + ' ' + data.nick + '</span> <span id="text" "style="color: black;" >' + ': ' + data.msg + '</span> </p>';
             $('#messages').append(htmlCode2);
-            $('#notme').css({
-                'color': 'black'
-            });
+            // $('#notme').css({
+            //     'color': 'black'
+            // });
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
             //
             // $('#messages').append(data.time + ' ' + data.nick + ' ' + data.msg + "<br/>").css({
@@ -69,7 +90,7 @@ $(function() {
             //  });;;
         }
 
-    //    window.scrollTo(0, document.body.scrollHeight);
+        //    window.scrollTo(0, document.body.scrollHeight);
     });
 
     socket.on('usernames', function(nicknames) {
