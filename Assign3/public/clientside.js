@@ -6,6 +6,7 @@ $(function() {
     let thisusername = 'Guest' + Math.round(Math.random() * 10000); //Generate a random nick for new clients
     let servercurrenttime;
     let usercolor;
+    let nameused = false;
     //let usercolor = 'red'; //default is red
     // let usercolor = function random_hex(){
     //     return '#' + Math.floor(Math.random()*16777215).toString(16);}();
@@ -56,9 +57,23 @@ $(function() {
         htmlCode = '<p> >>>>> ' + newname + ' is already in use </p>';
         $('#messages').append(htmlCode);
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
+        nameused = true;
 
     });
+    socket.on('name DNE', function(data){
+        console.log('name dne');
+        nameused = false;
+        let dataparts = data.msg.split(' ');
 
+        newname = dataparts[1];
+
+        htmlCode = '<p> >>>>> Your nick has changed to ' + newname + '</p>';
+           // }
+        thisusername = newname;
+        $('#messages').append(htmlCode);
+        $('#messages').scrollTop($('#messages')[0].scrollHeight);
+        $('#whoiam').html("Welcome to the Chat " + thisusername);
+    });
     socket.on('new message', function(data) {
         let htmlCode
         console.log('data is ' + data.msg);
@@ -72,21 +87,21 @@ $(function() {
         if (data.nick === thisusername) {
             console.log('in here');
 
-            if (data.msg.toLowerCase().includes('/color')) {
-                usercolor = data.color;
-                htmlCode = '<p> >>>>> Your nick color has changed to ' + data.color + '</p>';
-            }
+            // if (data.msg.toLowerCase().includes('/color')) {
+            //     usercolor = data.color;
+            //     htmlCode = '<p> >>>>> Your nick color has changed to ' + data.color + '</p>';
+            // }
 
             // if (data.msg.toLowerCase().includes('/nick')) {
             //     usercolor = data.color;
             //     htmlCode = '<p> >>>>> Your nick has been changed to ' + data. + '</p>';
             // }
             //usercolor = data.color;
-            else {
+            // else {
                 htmlCode = '<p><span id="time" style="color:black; font-weight: bold;"> ' + data.time + '</span><span id="' + data.nick + '" style="color: ' + data.color + '; font-weight: bold;"> ' +' ' + data.nick + '</span><span id="text" style="color: black; font-weight: bold;" >' + ': ' + data.msg + '</span></p>';
                 //     $('#messages').append($('<li>').text(msg));
                 console.log('htmlcode is ' + htmlCode);
-            }
+            // }
             $('#messages').append(htmlCode);
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
         } else { // overrides D:
@@ -104,7 +119,7 @@ $(function() {
 
     socket.on('usernames', function(nicknames) {
         //username.push(thisusername);
-        //    console.log('username', username);
+            console.log('username -----------', username);
         $('#whoiam').html("Welcome to the Chat " + thisusername);
         $('#currentusers').html("Current users: " + nicknames + "<br>");
     });

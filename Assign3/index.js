@@ -13,18 +13,18 @@ let currenttime = new Date().toLocaleTimeString();
 let messages = [];
 // let usercolor = 'red';
 
-function makeRandomColor(){
-  var c = '';
-  while (c.length < 6) {
-    c += (Math.random()).toString(16).substr(-6).substr(-1)
-    console.log('c is ' + c);
-  }
-  return '#'+c;
+function makeRandomColor() {
+    var c = '';
+    while (c.length < 6) {
+        c += (Math.random()).toString(16).substr(-6).substr(-1)
+        console.log('c is ' + c);
+    }
+    return '#' + c;
 }
 
 let usercolor = makeRandomColor();
 let color;
-var socketinfo= {};
+var socketinfo = {};
 let newname;
 let newname2;
 
@@ -59,11 +59,8 @@ io.on('connection', function(socket) {
     socket.on('chat message', function(data) {
         if (data.toLowerCase().includes('/color')) {
             let dataparts = data.split(' ');
-
             usercolor = dataparts[1];
             color = new String(usercolor)
-
-
             socketinfo[socket.nickname] = color;
             // return;
             socket.emit('changed color', {
@@ -71,53 +68,65 @@ io.on('connection', function(socket) {
                 nick: socket.nickname,
                 time: currenttime,
                 // color: color
-                color:socketinfo[socket.nickname]
+                color: socketinfo[socket.nickname]
             });
 
         } else {
-            if ( !(socket.nickname in socketinfo)){
-                usercolor  = makeRandomColor();
+            if (!(socket.nickname in socketinfo)) {
+                usercolor = makeRandomColor();
+                // console.log('color is colo ' + usercolor, 'socket is ' + socket.nickname);
+                color = new String(usercolor);
+                socketinfo[socket.nickname] = color;
             }
 
-            console.log('color is colo '+ usercolor);
-            color = new String(usercolor);
-            socketinfo[socket.nickname] = color;
+
         }
 
 
         if (data.toLowerCase().includes('/nick')) {
+            console.log('in nick in server');
             let dataparts = data.split(' ');
 
             newname = dataparts[1];
-            if (newname in socketinfo){
+            if (newname in socketinfo) {
                 socket.emit('name exists', {
-                    msg: data,
-                });
-            }
-            newname2 = new String(newname);
-            var oldname = socket.nickname;
-            socketinfo[newname] = socketinfo[socket.nickname]; //assign the new name the old color value
+                    msg: data
 
-            socket.nickname = newname;
-            delete socketinfo[oldname];
-            updateNicknames()
+                });
+            } else {
+
+                newname2 = new String(newname);
+                var oldname = socket.nickname;
+                socketinfo[newname] = socketinfo[socket.nickname]; //assign the new name the old color value
+                nicknames.splice(nicknames.indexOf(socket.nickname), 1);
+                socket.nickname = newname;
+                nicknames.push(socket.nickname);
+                delete socketinfo[oldname];
+                updateNicknames();
+                socket.emit('name DNE', {
+                    msg: data
+                });
+
+            }
         }
 
 
-        if (!data.toLowerCase().includes('/color') && !data.toLowerCase().includes('/nick')  ) {
-        io.emit('new message', {
-            msg: data,
-            nick: socket.nickname,
-            time: currenttime,
-            // color: color
-            color:socketinfo[socket.nickname]
-        });
-    }
+        if (!data.toLowerCase().includes('/color') && !data.toLowerCase().includes('/nick')) {
+            console.log('server info in new message ' + data + ' ' + socket.nickname + ' ' + socketinfo[socket.nickname]);
+            io.emit('new message', {
+                msg: data,
+                nick: socket.nickname,
+                time: currenttime,
+                // color: color
+                color: socketinfo[socket.nickname]
+            });
+        }
         // io.emit('currenttime', currenttime);
         // usercolor = 'red';
     });
 
     function updateNicknames() {
+        console.log('server nicknames are ' + nicknames);
         io.emit('usernames', nicknames);
     }
 
