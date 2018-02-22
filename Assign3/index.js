@@ -24,7 +24,7 @@ function makeRandomColor() {
 
 let usercolor = makeRandomColor();
 let color;
-var socketinfo = {};
+let socketinfo = {};
 let newname;
 let newname2;
 
@@ -50,12 +50,8 @@ io.on('connection', function(socket) {
             updateNicknames();
 
         }
-        // socketinfo[socket.nickname] = new Array();
     });
-    // socket.on('user color', function(data){
-    //
-    //     usercolor = data;
-    // });
+
     socket.on('chat message', function(data) {
         if (data.toLowerCase().includes('/color')) {
             let dataparts = data.split(' ');
@@ -67,19 +63,15 @@ io.on('connection', function(socket) {
                 msg: data,
                 nick: socket.nickname,
                 time: currenttime,
-                // color: color
                 color: socketinfo[socket.nickname]
             });
 
-        } else {
+        } else { //if no color command has been specified and it is a new client
             if (!(socket.nickname in socketinfo)) {
                 usercolor = makeRandomColor();
-                // console.log('color is colo ' + usercolor, 'socket is ' + socket.nickname);
                 color = new String(usercolor);
                 socketinfo[socket.nickname] = color;
             }
-
-
         }
 
 
@@ -117,12 +109,9 @@ io.on('connection', function(socket) {
                 msg: data,
                 nick: socket.nickname,
                 time: currenttime,
-                // color: color
                 color: socketinfo[socket.nickname]
             });
         }
-        // io.emit('currenttime', currenttime);
-        // usercolor = 'red';
     });
 
     function updateNicknames() {

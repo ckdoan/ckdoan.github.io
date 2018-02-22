@@ -5,9 +5,13 @@
       box-sizing: border-box;
   }*/
 
+*{
+    font: 50px;  /*Helvetica, Arial;*/
+}
 body {
-    font: 13px Helvetica, Arial;
-    background-color: lightblue;
+
+    /* background-color: lightblue; */
+    background: linear-gradient(120deg, #000, #2d98c6);
 }
 
 form {
@@ -44,7 +48,8 @@ form button {
 }
 
 .container {
-    background-color: lightblue;
+    /* background-color: lightblue; */
+    background: rgba(255, 255, 255, 0.05);
     /* height: 106vh;
     width: 100vw; */
     height: 80%;
@@ -52,7 +57,9 @@ form button {
 }
 
 .chatbox {
-    background: lightblue;
+    /* background: lightblue; */
+    background: rgba(255, 255, 255, 0.05);
+
     /* width: 600px; */
     height: 75%;
     border-radius: 0.2em;
@@ -66,7 +73,8 @@ form button {
     display: block;
     position: absolute;
     bottom: 0;
-    background-color: lightpink;
+    /* background-color: lightpink; */
+    background: rgba(255, 255, 255, 0.03);
     overflow: hidden;
 }
 
@@ -82,7 +90,8 @@ h1 {
 } */
 
 #currentusers {
-    background-color: lightgreen;
+    /* background-color: lightgreen; */
+    background: rgba(255, 255, 255, 0.1);
     /* width: 25%; */
     height: 100%;
     padding: 2px;
@@ -93,7 +102,9 @@ h1 {
     list-style-type: none;
     margin: 0;
     /* padding: 0; */
-    background-color: lightblue;
+    /* background-color: lightblue; */
+    /* background: rgba(255, 255, 255, 0.05); */
+    background: rgba(255, 255, 255, 0.05);
     width: 97%;
     overflow: auto;
     position: absolute;
