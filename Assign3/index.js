@@ -25,6 +25,8 @@ function makeRandomColor(){
 let usercolor = makeRandomColor();
 let color;
 var socketinfo= {};
+let newname;
+let newname2;
 
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -76,12 +78,33 @@ io.on('connection', function(socket) {
             if ( !(socket.nickname in socketinfo)){
                 usercolor  = makeRandomColor();
             }
-            
+
             console.log('color is colo '+ usercolor);
             color = new String(usercolor);
             socketinfo[socket.nickname] = color;
         }
-        if (!data.toLowerCase().includes('/color')) {
+
+
+        if (data.toLowerCase().includes('/nick')) {
+            let dataparts = data.split(' ');
+
+            newname = dataparts[1];
+            if (newname in socketinfo){
+                socket.emit('name exists', {
+                    msg: data,
+                });
+            }
+            newname2 = new String(newname);
+            var oldname = socket.nickname;
+            socketinfo[newname] = socketinfo[socket.nickname]; //assign the new name the old color value
+
+            socket.nickname = newname;
+            delete socketinfo[oldname];
+            updateNicknames()
+        }
+
+
+        if (!data.toLowerCase().includes('/color') && !data.toLowerCase().includes('/nick')  ) {
         io.emit('new message', {
             msg: data,
             nick: socket.nickname,
@@ -103,6 +126,7 @@ io.on('connection', function(socket) {
             return;
         }
         nicknames.splice(nicknames.indexOf(socket.nickname), 1);
+        delete socketinfo[socket.nickname];
         updateNicknames();
     });
 });

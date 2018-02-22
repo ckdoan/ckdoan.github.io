@@ -49,6 +49,16 @@ $(function() {
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
     });
 
+    socket.on('name exists', function(data){
+        let dataparts = data.msg.split(' ');
+
+        newname = dataparts[1];
+        htmlCode = '<p> >>>>> ' + newname + ' is already in use </p>';
+        $('#messages').append(htmlCode);
+        $('#messages').scrollTop($('#messages')[0].scrollHeight);
+
+    });
+
     socket.on('new message', function(data) {
         let htmlCode
         console.log('data is ' + data.msg);
@@ -66,6 +76,11 @@ $(function() {
                 usercolor = data.color;
                 htmlCode = '<p> >>>>> Your nick color has changed to ' + data.color + '</p>';
             }
+
+            // if (data.msg.toLowerCase().includes('/nick')) {
+            //     usercolor = data.color;
+            //     htmlCode = '<p> >>>>> Your nick has been changed to ' + data. + '</p>';
+            // }
             //usercolor = data.color;
             else {
                 htmlCode = '<p><span id="time" style="color:black; font-weight: bold;"> ' + data.time + '</span><span id="' + data.nick + '" style="color: ' + data.color + '; font-weight: bold;"> ' +' ' + data.nick + '</span><span id="text" style="color: black; font-weight: bold;" >' + ': ' + data.msg + '</span></p>';
@@ -80,14 +95,8 @@ $(function() {
             //    let htmlCode2 = '<p id="notme">' + data.time + ' ' + data.nick + ': ' + data.msg + ' </p>';
             let htmlCode2 = '<p><span id="time" style="color:black; font-weight: bold;"> ' + data.time + '<span id="' + data.nick + '" style="color: ' + data.color + ';">' + ' ' + data.nick + '</span> <span id="text" style="color: black;" >' + ': ' + data.msg + '</span> </p>';
             $('#messages').append(htmlCode2);
-            // $('#notme').css({
-            //     'color': 'black'
-            // });
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
-            //
-            // $('#messages').append(data.time + ' ' + data.nick + ' ' + data.msg + "<br/>").css({
-            //      "color": "black"
-            //  });;;
+
         }
 
         //    window.scrollTo(0, document.body.scrollHeight);
