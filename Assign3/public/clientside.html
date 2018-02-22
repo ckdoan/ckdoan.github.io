@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <h1 id="whoiam" style: "text-align:center"></h1>
+    <h1 id="whoiam"></h1>
     <div class='container'>
         <div class='chatbox'>
             <div class="row">
@@ -27,15 +27,17 @@
             <div class="row">
                 <div class='col-md-12'>
                     <form id="send-message" action="">
-                        <div > <input id="m" placeholder='Type Message Here' autocomplete="off"></input>
-                        </div>
-                        <div ><input type="submit"></input>
-                        </div>
+                        <input id="m" placeholder='Type Message Here' autocomplete="off"></input>
+                        <input type="submit" id='subbutton'></input>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    Commands:<br>
+    /Nick (newname) to change to newname <br>
+    /Color (color) to change the color of your name in chat.
 </body>
 
 

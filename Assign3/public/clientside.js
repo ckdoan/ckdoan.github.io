@@ -75,7 +75,7 @@ $(function() {
     socket.on('usernames', function(nicknames) {
         //username.push(thisusername);
         //    console.log('username', username);
-        $('#whoiam').html("Welcome " + thisusername);
-        $('#currentusers').html("Current users: " + nicknames + "<br/>");
+        $('#whoiam').html("Welcome to the Chat " + thisusername);
+        $('#currentusers').html("Current users: " + nicknames + "<br>");
     });
 });

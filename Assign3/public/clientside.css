@@ -5,39 +5,43 @@
       box-sizing: border-box;
   }*/
 
-  body {
-      font: 13px Helvetica, Arial;
-      background-color: lightblue;
-  }
+body {
+    font: 13px Helvetica, Arial;
+    background-color: lightblue;
+}
 
-  form {
-      /* background: #000; */
-      padding: 3px;
-      /* position: fixed; */
-      bottom: 0;
-      width: 100%;
-  height:auto;
-  }
+form {
+    /* background: #000; */
+    padding: 3px;
+    /* position: fixed; */
+    bottom: 0;
+    width: 100%;
+    height: auto;
+}
 
 #m {
-    width: 75%;
+    width: 66.666666666%;
+    padding: 30px;
+    overflow: hidden;
 }
-  form input #m {
 
-      padding: 10px;
+#subbutton {
+    padding: 30px;
+    width: 30%;
+}
 
-      margin-right: .5%;
+form input #m {
+    padding: 10px;
+    margin-right: .5%;
     border: solid;
-  }
+}
 
-  form button {
-      /* background: rgb(130, 224, 255); */
-      border: none;
-      padding: 10px;
-      float:right;
-  }
-
-
+form button {
+    /* background: rgb(130, 224, 255); */
+    border: none;
+    padding: 10px;
+    float: right;
+}
 
 .container {
     background-color: lightblue;
@@ -48,59 +52,59 @@
 }
 
 .chatbox {
-
-  background: lightblue;
- /* width: 600px; */
-  height: 75%;
-  border-radius: 0.2em;
-  position: relative;
-
-
-  overflow:   none;
-
-
+    background: lightblue;
+    /* width: 600px; */
+    height: 75%;
+    border-radius: 0.2em;
+    position: relative;
+    overflow: none;
 }
 
-.col-md-12{
+.col-md-12 {
     height: 100;
     padding: 2px;
-    display:block;
-    position:absolute;
-    bottom:0;
-     overflow:   auto;
-     background-color: lightpink;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    background-color: lightpink;
+    overflow: hidden;
 }
+
+h1 {
+    text-align: center;
+}
+
 /* #send-message {
     width: 100%;
     overflow:   auto;
      position:   absolute;
      bottom:     0;
 } */
-#currentusers{
+
+#currentusers {
     background-color: lightgreen;
     /* width: 25%; */
     height: 100%;
     padding: 2px;
-    float:right;
-
+    float: right;
 }
-  #messages {
-      list-style-type: none;
-      margin: 0;
-      /* padding: 0; */
-      background-color: lightblue;
-     width: 97%;
 
-      overflow:   auto;
-       position:   absolute;
-       bottom:     0;
-        max-height: 100%;
-      }
+#messages {
+    list-style-type: none;
+    margin: 0;
+    /* padding: 0; */
+    background-color: lightblue;
+    width: 97%;
+    overflow: auto;
+    position: absolute;
+    bottom: 0;
+    max-height: 100%;
+}
 
-  #messages li {
-      padding: 5px 10px;
-  }
+#messages li {
+    padding: 5px 10px;
+}
 
-  /* #messages li:nth-child(odd) {
+/* #messages li:nth-child(odd) {
       background: #eee;
   } */
