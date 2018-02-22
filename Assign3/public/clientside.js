@@ -34,19 +34,19 @@ $(function() {
         return false;
     });
 
-    socket.on('changed color', function(data){
+    socket.on('changed color', function(data) {
         // if(usercolor === ''){
         //     usercolor === data.color;
         // }
-         console.log('user color is ' + usercolor);
+        console.log('user color is ' + usercolor);
         if (data.color !== usercolor) {
-    //    if (data.msg.toLowerCase().includes('/color')) {
-            console.log('why am i here> ugh ');
+            //    if (data.msg.toLowerCase().includes('/color')) {
+            // console.log('why am i here> ugh ');
             usercolor = data.color;
             htmlCode = '<p> >>>>> Your nick color has changed to ' + data.color + '</p>';
         }
-        // $('#messages').append(htmlCode);
-        // $('#messages').scrollTop($('#messages')[0].scrollHeight);
+        $('#messages').append(htmlCode);
+        $('#messages').scrollTop($('#messages')[0].scrollHeight);
     });
 
     socket.on('new message', function(data) {
@@ -62,15 +62,15 @@ $(function() {
         if (data.nick === thisusername) {
             console.log('in here');
 
-            if (data.msg.toLowerCase().includes('/color') ) {
+            if (data.msg.toLowerCase().includes('/color')) {
                 usercolor = data.color;
                 htmlCode = '<p> >>>>> Your nick color has changed to ' + data.color + '</p>';
             }
             //usercolor = data.color;
             else {
-                htmlCode = '<p> <span id="' + data.nick + '" style="color: ' + data.color + '"; font-weight: bold;">' + data.time + ' ' + data.nick + '</span> <span id="text" "style="color: black;" >' + ': ' + data.msg + '</span> </p>';
+                htmlCode = '<p><span id="time" style="color:black; font-weight: bold;"> ' + data.time + '</span><span id="' + data.nick + '" style="color: ' + data.color + '; font-weight: bold;"> ' +' ' + data.nick + '</span><span id="text" style="color: black; font-weight: bold;" >' + ': ' + data.msg + '</span></p>';
                 //     $('#messages').append($('<li>').text(msg));
-                console.log('htmlcode is ' +  htmlCode);
+                console.log('htmlcode is ' + htmlCode);
             }
             $('#messages').append(htmlCode);
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
@@ -78,7 +78,7 @@ $(function() {
 
             console.log('wellll');
             //    let htmlCode2 = '<p id="notme">' + data.time + ' ' + data.nick + ': ' + data.msg + ' </p>';
-            let htmlCode2 = '<p> <span id="' + data.nick + '" style="color: ' + data.color + '"; font-weight: bold;">' + data.time + ' ' + data.nick + '</span> <span id="text" "style="color: black;" >' + ': ' + data.msg + '</span> </p>';
+            let htmlCode2 = '<p><span id="time" style="color:black; font-weight: bold;"> ' + data.time + '<span id="' + data.nick + '" style="color: ' + data.color + ';">' + ' ' + data.nick + '</span> <span id="text" style="color: black;" >' + ': ' + data.msg + '</span> </p>';
             $('#messages').append(htmlCode2);
             // $('#notme').css({
             //     'color': 'black'

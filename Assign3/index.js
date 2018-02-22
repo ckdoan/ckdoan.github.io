@@ -10,15 +10,19 @@ let port = process.env.PORT || 3000;
 
 let nicknames = [];
 let currenttime = new Date().toLocaleTimeString();
+let messages = [];
 // let usercolor = 'red';
-let usercolor = function makeRandomColor(){
+
+function makeRandomColor(){
   var c = '';
   while (c.length < 6) {
     c += (Math.random()).toString(16).substr(-6).substr(-1)
     console.log('c is ' + c);
   }
   return '#'+c;
-}();
+}
+
+let usercolor = makeRandomColor();
 let color;
 var socketinfo= {};
 
@@ -53,6 +57,7 @@ io.on('connection', function(socket) {
     socket.on('chat message', function(data) {
         if (data.toLowerCase().includes('/color')) {
             let dataparts = data.split(' ');
+
             usercolor = dataparts[1];
             color = new String(usercolor)
 
@@ -68,7 +73,11 @@ io.on('connection', function(socket) {
             });
 
         } else {
-            console.log('color is colo'+ usercolor);
+            if ( !(socket.nickname in socketinfo)){
+                usercolor  = makeRandomColor();
+            }
+            
+            console.log('color is colo '+ usercolor);
             color = new String(usercolor);
             socketinfo[socket.nickname] = color;
         }
