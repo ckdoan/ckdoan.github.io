@@ -2,24 +2,31 @@
 let username = [];
 
 $(function() {
-    var socket = io();
+//    var socket = io();
+    var socket = io.connect('http://localhost:3000');
     let thisusername = 'Guest' + Math.round(Math.random() * 10000); //Generate a random nick for new clients
     let servercurrenttime;
     let usercolor;
     let nameused = false;
 
-    socket.emit('new user', thisusername, function(data) { //sending server the nickname
-        if (data) {
-
-        } else {
-            $('#messages').append(data + ' is already in use' + "<br/>");
-        }
-    });
+    socket.emit('new user', thisusername ) //, function(data) { //sending server the nickname
+        // if (data) {
+        //     $('#messages').append(data + ' here i am ' + "<br/>");
+        // } else {
+        //     $('#messages').append(data + ' is already in use' + "<br/>");
+        // }
+//    });
 
     $('#send-message').submit(function(e) {
+
         e.preventDefault();
+
+
         username.push(thisusername);
-        socket.emit('chat message', $('#m').val());
+        var temp = $('#m').val();
+        socket.emit('chat message', temp);
+
+
         $('#m').val('');
         return false;
     });
@@ -28,7 +35,7 @@ $(function() {
         // if(usercolor === ''){
         //     usercolor === data.color;
         // }
-        console.log('user color is ' + usercolor);
+    //    console.log('user color is ' + usercolor);
         if (data.color !== usercolor) {
             //    if (data.msg.toLowerCase().includes('/color')) {
             usercolor = data.color;
@@ -49,7 +56,7 @@ $(function() {
 
     });
     socket.on('name DNE', function(data) {
-        console.log('name dne');
+    //    console.log('name dne');
         nameused = false;
         let dataparts = data.msg.split(' ');
 
@@ -64,39 +71,26 @@ $(function() {
     });
     socket.on('new message', function(data) {
         let htmlCode
-        console.log('data is ' + data.msg);
-        console.log('datanick is ' + data.nick + 'usernamethis is ' + thisusername);
-        console.log('data color is ' + data.color);
-        console.log('done');
+        // console.log('data is ' + data.msg);
+        // console.log('datanick is ' + data.nick + 'usernamethis is ' + thisusername);
+        // console.log('data color is ' + data.color);
+        // console.log('done');
         if (data.msg.trim() === "") {
             return;
         }
 
         if (data.nick === thisusername) {
-            // if (data.msg.toLowerCase().includes('/color')) {
-            //     usercolor = data.color;
-            //     htmlCode = '<p> >>>>> Your nick color has changed to ' + data.color + '</p>';
-            // }
-
-            // if (data.msg.toLowerCase().includes('/nick')) {
-            //     usercolor = data.color;
-            //     htmlCode = '<p> >>>>> Your nick has been changed to ' + data. + '</p>';
-            // }
-            //usercolor = data.color;
-            // else {
             htmlCode = '<p><span id="time" style="color:black; font-weight: bold;"> ' + data.time + '</span><span id="' + data.nick + '" style="color: ' + data.color + '; font-weight: bold;"> ' + ' ' + data.nick + '</span><span id="text" style="color: black; font-weight: bold;" >' + ': ' + data.msg + '</span></p>';
             //     $('#messages').append($('<li>').text(msg));
-            console.log('htmlcode is ' + htmlCode);
-            // }
+        //    console.log('htmlcode is ' + htmlCode);
             $('#messages').append(htmlCode);
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
-        } else { // overrides D:
-
-            console.log('wellll');
+        }
+        else { // overrides
+        //    console.log('wellll');
             let htmlCode2 = '<p><span id="time" style="color:black;"> ' + data.time + '<span id="' + data.nick + '" style="color: ' + data.color + ';">' + ' ' + data.nick + '</span> <span id="text" style="color: black;" >' + ': ' + data.msg + '</span> </p>';
             $('#messages').append(htmlCode2);
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
-
         }
     });
 

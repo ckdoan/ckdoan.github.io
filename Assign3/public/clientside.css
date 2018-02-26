@@ -78,6 +78,9 @@ form button {
     overflow: hidden;
 }
 
+.row {
+    height: 50%;
+}
 h1 {
     text-align: center;
 }
