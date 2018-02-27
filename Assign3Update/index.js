@@ -24,12 +24,14 @@ function makeRandomColor() {
     return '#' + c;
 }
 
+function makeRandomName(){
+    return 'Guest' + Math.round(Math.random() * 10000);
+}
 let usercolor = makeRandomColor();
 let color;
 let socketinfo = {};
 let newname;
 let newname2;
-
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -44,7 +46,8 @@ io.on('connection', function(socket) {
         //     callback(false);
         // } else {
         //     callback(messages);
-        socket.nickname = data;
+
+        socket.nickname = makeRandomName(); //data;
         nicknames.push(socket.nickname);
         updateNicknames();
         if (!(socket.nickname in socketinfo)) {
@@ -53,61 +56,64 @@ io.on('connection', function(socket) {
             socketinfo[socket.nickname] = color;
         }
         // }
+        console.log('serv erusername', messages);
         socket.emit('chatlog', {
-            msg: messages
-        })
+            msg: messages,
+            nick: socket.nickname
+        });
     });
 
     socket.on('chat message', function(data) {
         //    socket.nickname = 'Guest' + Math.round(Math.random() * 10000);
         //    nicknames.push(socket.nickname);
         //    updateNicknames();
-        // if (data.toLowerCase().includes('/color')) {
-        //     let dataparts = data.split(' ');
-        //     usercolor = dataparts[1];
-        //     color = new String(usercolor)
-        //     socketinfo[socket.nickname] = color;
-        //     socket.emit('changed color', {
-        //         msg: data,
-        //         nick: socket.nickname,
-        //         time: currenttime,
-        //         color: socketinfo[socket.nickname]
-        //     });
-        // } else if (data.toLowerCase().includes('/nick')) {
-        //     //    console.log('in nick in server');
-        //     let dataparts = data.split(' ');
-        //     newname = dataparts[1];
-        //
-        //     if (newname in socketinfo) {
-        //         socket.emit('name exists', {
-        //             msg: data
-        //         });
-        //     } else { // if name change is possible
-        //         newname2 = new String(newname);
-        //         var oldname = socket.nickname;
-        //         socketinfo[newname] = socketinfo[socket.nickname]; //assign the new name the old color value
-        //         delete socketinfo[oldname];
-        //         nicknames.splice(nicknames.indexOf(socket.nickname), 1);
-        //         socket.nickname = newname;
-        //         nicknames.push(socket.nickname);
-        //
-        //         updateNicknames();
-        //
-        //         socket.emit('name DNE', {
-        //             msg: data
-        //         });
-        //     }
-        // }
-        // else { // no commands given
+        if (data.toLowerCase().includes('/nickcolor')) {
+            let dataparts = data.split(' ');
+            usercolor = dataparts[1];
+            color = new String(usercolor)
+            socketinfo[socket.nickname] = color;
+            socket.emit('changed color', {
+                msg: data,
+                nick: socket.nickname,
+                time: currenttime,
+                color: socketinfo[socket.nickname]
+            });
+        } else if (data.toLowerCase().includes('/nick')) {
+            //    console.log('in nick in server');
+            let dataparts = data.split(' ');
+            newname = dataparts[1];
+
+            if (newname in socketinfo) {
+                socket.emit('name exists', {
+                    msg: data
+                });
+            } else { // if name change is possible
+                newname2 = new String(newname);
+                var oldname = socket.nickname;
+                socketinfo[newname] = socketinfo[socket.nickname]; //assign the new name the old color value
+                delete socketinfo[oldname];
+                nicknames.splice(nicknames.indexOf(socket.nickname), 1);
+                socket.nickname = newname;
+                nicknames.push(socket.nickname);
+
+                updateNicknames();
+
+                socket.emit('name DNE', {
+                    msg: data
+                });
+            }
+        }
+        else { // no commands given
     //     console.log('server info in new messag');
-            messages.push(data);
+            temp = '<p  style="color:green;">'+ data +'</p>'
+            messages.push(temp);
             io.emit('new message', {
                 msg: data,
                 nick: socket.nickname,
                 time: currenttime,
                 color: socketinfo[socket.nickname]
             });
-    //}
+    }
     });
 
 

@@ -4,23 +4,18 @@ let username = [];
 $(function() {
 //    var socket = io();
     var socket = io.connect('http://localhost:3000');
-    let thisusername = 'Guest' + Math.round(Math.random() * 10000); //Generate a random nick for new clients
+    let thisusername; // = 'Guest' + Math.round(Math.random() * 10000); //Generate a random nick for new clients
     let servercurrenttime;
     let usercolor;
     let nameused = false;
 
-    socket.emit('new user', thisusername ) //, function(data) { //sending server the nickname
-        // if (data) {
-        //     $('#messages').append(data + ' here i am ' + "<br/>");
-        // } else {
-        //     $('#messages').append(data + ' is already in use' + "<br/>");
-        // }
-//    });
+    $(document).ready(function() {
+        socket.emit('new user');
+    });
 
     $('#send-message').submit(function(e) {
 
         e.preventDefault();
-
 
         username.push(thisusername);
         var temp = $('#m').val();
@@ -43,6 +38,12 @@ $(function() {
         }
         $('#messages').append(htmlCode);
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
+    });
+
+    socket.on('chatlog', function(data) {
+        thisusername = data.nick;
+        $('#whoiam').html("Welcome to the Chat " + thisusername);
+        $('#messages').append(data.msg + ' here i am ' + "<br/>");
     });
 
     socket.on('name exists', function(data) {
@@ -95,7 +96,8 @@ $(function() {
     });
 
     socket.on('usernames', function(nicknames) {
-        $('#whoiam').html("Welcome to the Chat " + thisusername);
+        console.log('thisusername', thisusername);
+
         $('#currentusers').html("Current users: " + nicknames + "<br>");
     });
 });

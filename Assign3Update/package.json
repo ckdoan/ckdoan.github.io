@@ -1,12 +1,15 @@
 {
-    "name": "socket-chat-example",
+    "name": "Seng-513-Assignment-3",
     "version": "0.0.1",
-    "description": "my first socket.io app",
+    "description": "Web Chat Application",
     "dependencies": {
         "express": "^4.14.1",
         "socket.io": "^1.7.3"
     },
     "scripts": {
         "start": "node index.js"
+    },
+    "devDependencies": {
+        "nodemon": "^1.15.1"
     }
 }
