@@ -1,0 +1,47 @@
+<!-- <!doctype html> -->
+
+<!-- code taken from https://socket.io/get-started/chat/  -->
+<html>
+
+<head>
+    <title>Client Side chat</title>
+    <link rel="shortcut icon" href="">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="clientside.js"></script>
+    <link rel="stylesheet" type="text/css" href="clientside.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <h1 id="whoiam" style="color:white"></h1>
+    <div class='container'>
+        <div class='chatbox'>
+            <div class="row">
+                <div class="col-md-8"><ul id="messages"></ul></div>
+                <div class="col-md-4" id="currentusers"></div>
+            </div>
+            <div class="row">
+                <div class='col-md-12'>
+                    <form id="send-message" action="">
+                        <input id="m" placeholder='Type Message Here' autocomplete="off"></input>
+                        <button>send</button>
+                        <!-- <input type="submit" id='subbutton'>send</input> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<p style="color:white">
+    Chat Commands:<br>
+    /Nick (newname) to change name <br>
+    /Color (color) to change color</p>
+</body>
+
+
+
+</html>

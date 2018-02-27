@@ -1,0 +1,124 @@
+/*
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }*/
+
+*{
+    font: 50px;  /*Helvetica, Arial;*/
+}
+body {
+
+    /* background-color: lightblue; */
+    background: linear-gradient(120deg, #000, #2d98c6);
+}
+
+form {
+    /* background: #000; */
+    padding: 3px;
+    /* position: fixed; */
+    bottom: 0;
+    width: 100%;
+    height: auto;
+}
+
+#m {
+    width: 66.666666666%;
+    padding: 30px;
+    overflow: hidden;
+}
+
+button {
+    padding: 30px;
+    width: 30%;
+}
+
+form input #m {
+    padding: 10px;
+    margin-right: .5%;
+    border: solid;
+}
+
+form button {
+    /* background: rgb(130, 224, 255); */
+    border: none;
+    padding: 10px;
+    float: right;
+}
+
+.container {
+    /* background-color: lightblue; */
+    background: rgba(255, 255, 255, 0.05);
+    /* height: 106vh;
+    width: 100vw; */
+    height: 80%;
+    /* overflow: auto; */
+}
+
+.chatbox {
+    /* background: lightblue; */
+    background: rgba(255, 255, 255, 0.05);
+
+    /* width: 600px; */
+    height: 75%;
+    border-radius: 0.2em;
+    position: relative;
+    overflow: none;
+}
+
+.col-md-12 {
+    height: 100;
+    padding: 2px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    /* background-color: lightpink; */
+    background: rgba(255, 255, 255, 0.03);
+    overflow: hidden;
+}
+
+.row {
+    height: 50%;
+}
+h1 {
+    text-align: center;
+}
+
+/* #send-message {
+    width: 100%;
+    overflow:   auto;
+     position:   absolute;
+     bottom:     0;
+} */
+
+#currentusers {
+    /* background-color: lightgreen; */
+    background: rgba(255, 255, 255, 0.1);
+    /* width: 25%; */
+    height: 100%;
+    padding: 2px;
+    float: right;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    /* padding: 0; */
+    /* background-color: lightblue; */
+    /* background: rgba(255, 255, 255, 0.05); */
+    background: rgba(255, 255, 255, 0.05);
+    width: 97%;
+    overflow: auto;
+    position: absolute;
+    bottom: 0;
+    max-height: 100%;
+}
+
+#messages li {
+    padding: 5px 10px;
+}
+
+/* #messages li:nth-child(odd) {
+      background: #eee;
+  } */
