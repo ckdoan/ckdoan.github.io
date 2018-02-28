@@ -43,7 +43,14 @@ $(function() {
     socket.on('chatlog', function(data) {
         thisusername = data.nick;
         $('#whoiam').html("Welcome to the Chat " + thisusername);
-        $('#messages').append(data.msg + ' here i am ' + "<br/>");
+        if (data.msg.length != 0){
+    //    console.log(doubled);
+            for (let i = 0; i<data.msg.length; i++){
+                console.log('this is the message ', data.msg[i]);
+                $('#messages').append(data.msg[i]);
+                $('#messages').scrollTop($('#messages')[0].scrollHeight);
+            }
+        }
     });
 
     socket.on('name exists', function(data) {
@@ -83,12 +90,10 @@ $(function() {
         if (data.nick === thisusername) {
             htmlCode = '<p><span id="time" style="color:black; font-weight: bold;"> ' + data.time + '</span><span id="' + data.nick + '" style="color: ' + data.color + '; font-weight: bold;"> ' + ' ' + data.nick + '</span><span id="text" style="color: black; font-weight: bold;" >' + ': ' + data.msg + '</span></p>';
             //     $('#messages').append($('<li>').text(msg));
-        //    console.log('htmlcode is ' + htmlCode);
             $('#messages').append(htmlCode);
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
         }
-        else { // overrides
-        //    console.log('wellll');
+        else { // prints the contents sent from other users
             let htmlCode2 = '<p><span id="time" style="color:black;"> ' + data.time + '<span id="' + data.nick + '" style="color: ' + data.color + ';">' + ' ' + data.nick + '</span> <span id="text" style="color: black;" >' + ': ' + data.msg + '</span> </p>';
             $('#messages').append(htmlCode2);
             $('#messages').scrollTop($('#messages')[0].scrollHeight);

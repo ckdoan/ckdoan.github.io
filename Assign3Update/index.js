@@ -42,11 +42,6 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket) {
 
     socket.on('new user', function(data) { //}, callback) {
-        // if (nicknames.indexOf(data) != -1) {
-        //     callback(false);
-        // } else {
-        //     callback(messages);
-
         socket.nickname = makeRandomName(); //data;
         nicknames.push(socket.nickname);
         updateNicknames();
@@ -105,8 +100,11 @@ io.on('connection', function(socket) {
         }
         else { // no commands given
     //     console.log('server info in new messag');
-            temp = '<p  style="color:green;">'+ data +'</p>'
+        //    temp = '<p  style="color:green;">'+ data +'</p>'
+            temp = '<p><span id="time" style="color:black;"> ' + currenttime + '<span id="' + socket.nickname + '" style="color: ' + socketinfo[socket.nickname] + ';">' + ' ' + socket.nickname+ '</span> <span id="text" style="color: black;" >' + ': ' + data + '</span> </p>';
+
             messages.push(temp);
+
             io.emit('new message', {
                 msg: data,
                 nick: socket.nickname,
