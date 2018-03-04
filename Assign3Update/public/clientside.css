@@ -29,13 +29,14 @@ form {
     overflow: hidden;
 }
 
-button {
-    padding: 30px;
-    width: 30%;
-}
+/* button { */
+    /* padding: 30px; */
+    /* width: 32%;
+    height: 100%;
+} */
 
 form input #m {
-    padding: 10px;
+    /* padding: 10px; */
     margin-right: .5%;
     border: solid;
 }
@@ -43,13 +44,15 @@ form input #m {
 form button {
     /* background: rgb(130, 224, 255); */
     border: none;
-    padding: 10px;
+    /* padding: 10px; */
     float: right;
+    width: 32%;
+    height: 100%;
 }
 
 .container {
     /* background-color: lightblue; */
-    background: rgba(255, 255, 255, 0.05);
+    /* background: rgba(255, 255, 255, 0.05); */
     /* height: 106vh;
     width: 100vw; */
     height: 80%;
@@ -58,13 +61,13 @@ form button {
 
 .chatbox {
     /* background: lightblue; */
-    background: rgba(255, 255, 255, 0.05);
+    /* background: rgba(255, 255, 255, 0.05); */
 
     /* width: 600px; */
-    height: 75%;
+    /* height: 75%;
     border-radius: 0.2em;
     position: relative;
-    overflow: none;
+    overflow: none; */
 }
 
 .col-md-12 {
@@ -74,12 +77,12 @@ form button {
     position: absolute;
     bottom: 0;
     /* background-color: lightpink; */
-    background: rgba(255, 255, 255, 0.03);
+    /* background: rgba(255, 255, 255, 0.03); */
     overflow: hidden;
 }
 
-.row {
-    height: 50%;
+#row1 {
+    height: 90%;
 }
 h1 {
     text-align: center;

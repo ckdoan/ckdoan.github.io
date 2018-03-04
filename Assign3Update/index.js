@@ -51,10 +51,31 @@ io.on('connection', function(socket) {
             socketinfo[socket.nickname] = color;
         }
         // }
+        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAA');
         console.log('serv erusername', messages);
         socket.emit('chatlog', {
             msg: messages,
-            nick: socket.nickname
+            nick: socket.nickname,
+            color: socketinfo[socket.nickname]
+        });
+    });
+    socket.on('new user with cookie', function(data){
+        let cookieparts = data.split("=");
+        socket.nickname = cookieparts[0]; //data;
+        nicknames.push(socket.nickname);
+        updateNicknames();
+        if (!(socket.nickname in socketinfo)) {
+            usercolor = cookieparts[1];
+            color = new String(usercolor);
+            socketinfo[socket.nickname] = color;
+        }
+        // }
+        console.log("asdasfasgadasdasd--------------------");
+        console.log('serv erusername', messages);
+        socket.emit('chatlog', {
+            msg: messages,
+            nick: socket.nickname,
+            color: socketinfo[socket.nickname]
         });
     });
 
