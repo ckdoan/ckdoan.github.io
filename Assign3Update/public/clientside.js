@@ -14,7 +14,7 @@ $(function() {
 
         if(parseCookie() != null){
             cookiecreated = true;
-            var temp = parseCookie(); 
+            var temp = parseCookie();
         //    console.log('in here ');
             // var cookie = document.cookie.split(';');
             // var temp = cookie[0]
@@ -117,7 +117,7 @@ $(function() {
         if (data.color !== usercolor) {
             //    if (data.msg.toLowerCase().includes('/color')) {
             usercolor = data.color;
-            htmlCode = '<p> >>>>> Your nick color has changed to ' + data.color + '</p>';
+            htmlCode = '<li> >>>>> Your nick color has changed to ' + data.color + '</li>';
         }
         $('#messages').append(htmlCode);
 
@@ -135,7 +135,7 @@ $(function() {
         let dataparts = data.msg.split(' ');
 
         newname = dataparts[1];
-        htmlCode = '<p> >>>>> ' + newname + ' is already in use </p>';
+        htmlCode = '<li> >>>>> ' + newname + ' is already in use </li>';
         $('#messages').append(htmlCode);
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
         nameused = true;
@@ -149,7 +149,7 @@ $(function() {
 
         newname = dataparts[1];
 
-        htmlCode = '<p> >>>>> Your nick has changed to ' + newname + '</p>';
+        htmlCode = '<li> >>>>> Your nick has changed to ' + newname + '</li>';
         // }
         thisusername = newname;
         $('#messages').append(htmlCode);
@@ -179,23 +179,22 @@ $(function() {
         }
 
         if (data.nick === thisusername) {
-            htmlCode = '<p><span id="time" style="color:black; font-weight: bold;"> ' + data.time + '</span><span id="' + data.nick + '" style="color: ' + data.color + '; font-weight: bold;"> ' + ' ' + data.nick + '</span><span id="text" style="color: black; font-weight: bold;" >' + ': ' + data.msg + '</span></p>';
+            htmlCode = '<li id = "you"><span id="time" style="color:black; font-weight: bold;"> ' + data.time + '</span><span id="' + data.nick + '" style="color: ' + data.color + '; font-weight: bold;"> ' + ' ' + data.nick + '</span><span id="text" style="color: black; font-weight: bold;" >' + ': ' + data.msg + '</span></li>';
             //     $('#messages').append($('<li>').text(msg));
             $('#messages').append(htmlCode);
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
         }
         else { // prints the contents sent from other users
-            let htmlCode2 = '<p><span id="time" style="color:black;"> ' + data.time + '<span id="' + data.nick + '" style="color: ' + data.color + ';">' + ' ' + data.nick + '</span> <span id="text" style="color: black;" >' + ': ' + data.msg + '</span> </p>';
+            let htmlCode2 = '<li id = "other"><span id="time" style="color:black;"> ' + data.time + '<span id="' + data.nick + '" style="color: ' + data.color + ';">' + ' ' + data.nick + '</span> <span id="text" style="color: black;" >' + ': ' + data.msg + '</span> </li>';
             $('#messages').append(htmlCode2);
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
         }
     });
 
     socket.on('usernames', function(nicknames) {
-//        console.log('thisusername', thisusername);
-
         $('#currentusers').html("Current users: " + nicknames + "<br>");
     });
+
     socket.on('disconnect', function(){
         cookiecreated = true;
     });

@@ -5,11 +5,12 @@
       box-sizing: border-box;
   }*/
 
-*{
-    font: 50px;  /*Helvetica, Arial;*/
+* {
+    font: 50px;
+    /*Helvetica, Arial;*/
 }
-body {
 
+body {
     /* background-color: lightblue; */
     background: linear-gradient(120deg, #000, #2d98c6);
 }
@@ -30,8 +31,10 @@ form {
 }
 
 /* button { */
-    /* padding: 30px; */
-    /* width: 32%;
+
+/* padding: 30px; */
+
+/* width: 32%;
     height: 100%;
 } */
 
@@ -62,7 +65,6 @@ form button {
 .chatbox {
     /* background: lightblue; */
     /* background: rgba(255, 255, 255, 0.05); */
-
     /* width: 600px; */
     /* height: 75%;
     border-radius: 0.2em;
@@ -84,6 +86,7 @@ form button {
 #row1 {
     height: 90%;
 }
+
 h1 {
     text-align: center;
 }
@@ -105,6 +108,7 @@ h1 {
 }
 
 #messages {
+
     list-style-type: none;
     margin: 0;
     /* padding: 0; */
@@ -112,16 +116,109 @@ h1 {
     /* background: rgba(255, 255, 255, 0.05); */
     background: rgba(255, 255, 255, 0.05);
     width: 97%;
-    overflow: auto;
+    /* overflow: auto; */
+    overflow-x: hidden;
     position: absolute;
     bottom: 0;
     max-height: 100%;
+    overflow-wrap: break-word;
+
 }
 
-#messages li {
+/* #messages li {
     padding: 5px 10px;
-}
+} */
 
 /* #messages li:nth-child(odd) {
       background: #eee;
   } */
+
+li{
+    margin: 0 auto 10px 0;
+    display: block;
+    /* background-color: white; */
+    background: rgba(255, 255, 255, 0.2);
+
+    padding: 5px;
+    border-radius: 4px;
+    /* position: relative; */
+    border-width: 1px;
+    border-style: solid;
+    border-color: grey;
+    overflow-wrap: break-word;
+}
+
+li#you {
+    max-width: 350px;
+    min-height: 50px;
+}
+
+li#you:after {
+    content: " ";
+    display: inline-block;
+    position: absolute;
+    left: -8.5px;
+    top: 7px;
+    height: 0px;
+    width: 0px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid white;
+}
+
+li#you:before {
+    content: " ";
+    display: inline-block;
+    position: absolute;
+    left: -9px;
+    top: 7px;
+    height: 0px;
+    width: 0px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid black;
+}
+
+li#other:after {
+    content: " ";
+    display: inline-block;
+    position: absolute;
+    right: -8px;
+    top: 6px;
+    height: 0px;
+    width: 0px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid #dbedfe;
+}
+
+li#other:before {
+    content: " ";
+    display: inline-block;
+    position: absolute;
+    right: -9px;
+    top: 6px;
+    height: 0px;
+    width: 0px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid black;
+}
+
+li#other {
+    float: right;
+    /* text-align: right; */
+    display: inline-block;
+    max-width: 350px;
+    min-width: 350px;
+    min-height: 50px;
+    /* background-color: #dbedfe; */
+    background-color: rgba(57, 230, 255, 0.25);
+}
+
+li{
+    clear: both;
+}
+.clear{
+    clear: both;
+}

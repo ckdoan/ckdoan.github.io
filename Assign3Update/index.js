@@ -51,8 +51,8 @@ io.on('connection', function(socket) {
             socketinfo[socket.nickname] = color;
         }
         // }
-        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAA');
-        console.log('serv erusername', messages);
+//        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAA');
+//        console.log('serv erusername', messages);
         socket.emit('chatlog', {
             msg: messages,
             nick: socket.nickname,
@@ -70,8 +70,8 @@ io.on('connection', function(socket) {
             socketinfo[socket.nickname] = color;
         }
         // }
-        console.log("asdasfasgadasdasd--------------------");
-        console.log('serv erusername', messages);
+    //    console.log("asdasfasgadasdasd--------------------");
+    //    console.log('serv erusername', messages);
         socket.emit('chatlog', {
             msg: messages,
             nick: socket.nickname,
@@ -137,7 +137,6 @@ io.on('connection', function(socket) {
 
 
     function updateNicknames() {
-    //    console.log('server nicknames are ' + nicknames);
         io.emit('usernames', nicknames);
     }
 
