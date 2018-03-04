@@ -1,6 +1,3 @@
-/*code taken from https://socket.io/get-started/chat/ */
-//let app = require('express')();
-
 let express = require('express');
 let app = express();
 let http = require('http').Server(app);
@@ -24,9 +21,10 @@ function makeRandomColor() {
     return '#' + c;
 }
 
-function makeRandomName(){
+function makeRandomName() {
     return 'Guest' + Math.round(Math.random() * 10000);
 }
+
 let usercolor = makeRandomColor();
 let color;
 let socketinfo = {};
@@ -41,8 +39,8 @@ app.get('/', function(req, res) {
 
 io.on('connection', function(socket) {
 
-    socket.on('new user', function(data) { //}, callback) {
-        socket.nickname = makeRandomName(); //data;
+    socket.on('new user', function(data) {
+        socket.nickname = makeRandomName();
         nicknames.push(socket.nickname);
         updateNicknames();
         if (!(socket.nickname in socketinfo)) {
@@ -50,16 +48,14 @@ io.on('connection', function(socket) {
             color = new String(usercolor);
             socketinfo[socket.nickname] = color;
         }
-        // }
-//        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAA');
-//        console.log('serv erusername', messages);
+
         socket.emit('chatlog', {
             msg: messages,
             nick: socket.nickname,
             color: socketinfo[socket.nickname]
         });
     });
-    socket.on('new user with cookie', function(data){
+    socket.on('new user with cookie', function(data) {
         let cookieparts = data.split("=");
         socket.nickname = cookieparts[0]; //data;
         nicknames.push(socket.nickname);
@@ -69,9 +65,7 @@ io.on('connection', function(socket) {
             color = new String(usercolor);
             socketinfo[socket.nickname] = color;
         }
-        // }
-    //    console.log("asdasfasgadasdasd--------------------");
-    //    console.log('serv erusername', messages);
+
         socket.emit('chatlog', {
             msg: messages,
             nick: socket.nickname,
@@ -80,9 +74,6 @@ io.on('connection', function(socket) {
     });
 
     socket.on('chat message', function(data) {
-        //    socket.nickname = 'Guest' + Math.round(Math.random() * 10000);
-        //    nicknames.push(socket.nickname);
-        //    updateNicknames();
         if (data.toLowerCase().includes('/nickcolor')) {
             let dataparts = data.split(' ');
             usercolor = dataparts[1];
@@ -118,11 +109,8 @@ io.on('connection', function(socket) {
                     msg: data
                 });
             }
-        }
-        else { // no commands given
-    //     console.log('server info in new messag');
-        //    temp = '<p  style="color:green;">'+ data +'</p>'
-            temp = '<p><span id="time" style="color:black;"> ' + currenttime + '<span id="' + socket.nickname + '" style="color: ' + socketinfo[socket.nickname] + ';">' + ' ' + socket.nickname+ '</span> <span id="text" style="color: black;" >' + ': ' + data + '</span> </p>';
+        } else { // no commands given
+            temp = '<li id="other"><span id="time" style="color:black;"> ' + currenttime + '<span id="' + socket.nickname + '" style="color: ' + socketinfo[socket.nickname] + ';">' + ' ' + socket.nickname + '</span> <span id="text" style="color: black;" >' + ': ' + data + '</span> </li>';
 
             messages.push(temp);
 
@@ -132,7 +120,7 @@ io.on('connection', function(socket) {
                 time: currenttime,
                 color: socketinfo[socket.nickname]
             });
-    }
+        }
     });
 
 

@@ -1,10 +1,8 @@
-// let socket = io();
 let username = [];
 
 $(function() {
-//    var socket = io();
-    var socket = io.connect('http://localhost:3000');
-    let thisusername; // = 'Guest' + Math.round(Math.random() * 10000); //Generate a random nick for new clients
+    let socket = io.connect('http://localhost:3000');
+    let thisusername;
     let servercurrenttime;
     let usercolor;
     let nameused = false;
@@ -12,30 +10,25 @@ $(function() {
 
     $(document).ready(function() {
 
-        if(parseCookie() != null){
+        if (parseCookie() != null) {
             cookiecreated = true;
-            var temp = parseCookie();
-        //    console.log('in here ');
-            // var cookie = document.cookie.split(';');
-            // var temp = cookie[0]
-            socket.emit('new user with cookie', temp, function(data){
+            let temp = parseCookie();
+            socket.emit('new user with cookie', temp, function(data) {
 
             });
-        }
-        else{ //first time visiting the site
-            console.log('no cookies');
+        } else { //first time visiting the site
             cookiecreated = false;
             socket.emit('new user');
         }
     });
 
-    function updateCookie(name, color){
-        var expires = "";
+    function updateCookie(name, color) {
+        let expires = "";
         document.cookie = name + "=" + color + expires + "; path=/";
 
     }
     //creates and updates the cookies
-    function createCookie(name, color){
+    function createCookie(name, color) {
         //         if (hours)
         // {
         //     var date = new Date();
@@ -47,40 +40,27 @@ $(function() {
         //     var expires = "";
         // }
 
-        var expires = "";
+        let expires = "";
         document.cookie = name + "=" + color + expires + "; path=/";
         cookiecreated = true;
     }
 
-    function parseCookie(){
-    //    var nameofcookie = name + "=";
-        var cookie = document.cookie.split(';');
-        console.log('cookie here is ' , cookie);
-    //    if (cookie.length > 1){ // more than 1 cookie
-            for (let i = 0; i < cookie.length; i++){
-                var parts = cookie[i].split('=');
-                console.log('parts1 is', parts);
-                console.log('parts1 is', parts[1]);
-                if (parts.length === 2 && parts[1].length !== 0){
-                    console.log('parts, ' ,parts.join('='));
-                    return parts.join('=');
-                }
+    function parseCookie() {
+        let cookie = document.cookie.split(';');
+        for (let i = 0; i < cookie.length; i++) {
+            let parts = cookie[i].split('=');
+            if (parts.length === 2 && parts[1].length !== 0) {
+                console.log('parts, ', parts.join('='));
+                return parts.join('=');
             }
-        //}
-    //    else {
-            return null;
-    //    }
-
-
-
-
+        }
+        return null;
     }
 
     $('#send-message').submit(function(e) {
-        console.log('cookie', document.cookie);
         e.preventDefault();
         username.push(thisusername);
-        var temp = $('#m').val();
+        let temp = $('#m').val();
         socket.emit('chat message', temp);
         $('#m').val('');
         return false;
@@ -89,18 +69,13 @@ $(function() {
     socket.on('chatlog', function(data) {
         thisusername = data.nick;
         usercolor = data.color;
-        console.log('cookie created bool is ', cookiecreated);
-        if (cookiecreated === false)
-        {
-            console.log('creating cookie');
+        if (cookiecreated === false) {
             createCookie(thisusername, usercolor);
         }
 
         $('#whoiam').html("Welcome to the Chat " + thisusername);
-        if (data.msg.length != 0){
-    //    console.log(doubled);
-            for (let i = 0; i<data.msg.length; i++){
-            //    console.log('this is the message ', data.msg[i]);
+        if (data.msg.length != 0) {
+            for (let i = 0; i < data.msg.length; i++) {
                 $('#messages').append(data.msg[i]);
                 $('#messages').scrollTop($('#messages')[0].scrollHeight);
             }
@@ -111,9 +86,9 @@ $(function() {
         // if(usercolor === ''){
         //     usercolor === data.color;
         // }
-    //    console.log('user color is ' + usercolor);
+        //    console.log('user color is ' + usercolor);
         let oldcolor = usercolor;
-//        console.log('userclor is ', usercolor);
+        //        console.log('userclor is ', usercolor);
         if (data.color !== usercolor) {
             //    if (data.msg.toLowerCase().includes('/color')) {
             usercolor = data.color;
@@ -122,7 +97,7 @@ $(function() {
         $('#messages').append(htmlCode);
 
         let temp = $('#messages').html();
-        let temp2 = temp.replace(oldcolor , data.color );
+        let temp2 = temp.replace(oldcolor, data.color);
         $('#messages').html(temp2);
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
         createCookie(thisusername, usercolor);
@@ -142,7 +117,6 @@ $(function() {
 
     });
     socket.on('name DNE', function(data) {
-    //    console.log('name dne');
         let oldname = thisusername;
         nameused = false;
         let dataparts = data.msg.split(' ');
@@ -150,30 +124,26 @@ $(function() {
         newname = dataparts[1];
 
         htmlCode = '<li> >>>>> Your nick has changed to ' + newname + '</li>';
-        // }
         thisusername = newname;
         $('#messages').append(htmlCode);
-            console.log('oldname', oldname);
-            console.log('newname', thisusername);
+        console.log('oldname', oldname);
+        console.log('newname', thisusername);
         let temp = $('#messages').html();
-        console.log('text before ', temp);
-        if (temp.includes(oldname)){
-            console.log('in ehere');
+
+        if (temp.includes(oldname)) {
+            //        console.log('in ehere');
         }
-        let temp2 = temp.replace(oldname , thisusername );
-        console.log('text after', temp2);
+        let temp2 = temp.replace(oldname, thisusername);
+
         $('#messages').html(temp2);
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
         $('#whoiam').html("Welcome to the Chat " + thisusername);
         updateCookie(thisusername, usercolor);
-        createCookie(oldname,"",-1);
+        createCookie(oldname, "", -1);
     });
     socket.on('new message', function(data) {
         let htmlCode
-        // console.log('data is ' + data.msg);
-        // console.log('datanick is ' + data.nick + 'usernamethis is ' + thisusername);
-        // console.log('data color is ' + data.color);
-        // console.log('done');
+
         if (data.msg.trim() === "") {
             return;
         }
@@ -183,8 +153,7 @@ $(function() {
             //     $('#messages').append($('<li>').text(msg));
             $('#messages').append(htmlCode);
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
-        }
-        else { // prints the contents sent from other users
+        } else { // prints the contents sent from other users
             let htmlCode2 = '<li id = "other"><span id="time" style="color:black;"> ' + data.time + '<span id="' + data.nick + '" style="color: ' + data.color + ';">' + ' ' + data.nick + '</span> <span id="text" style="color: black;" >' + ': ' + data.msg + '</span> </li>';
             $('#messages').append(htmlCode2);
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
@@ -195,7 +164,7 @@ $(function() {
         $('#currentusers').html("Current users: " + nicknames + "<br>");
     });
 
-    socket.on('disconnect', function(){
+    socket.on('disconnect', function() {
         cookiecreated = true;
     });
 
