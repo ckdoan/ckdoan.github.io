@@ -29,17 +29,6 @@ $(function() {
     }
     //creates and updates the cookies
     function createCookie(name, color) {
-        //         if (hours)
-        // {
-        //     var date = new Date();
-        //     date.setTime(date.getTime()+(hours*60*60*1000));
-        //     var expires = "; expires="+date.toGMTString();
-        // }
-        // else
-        // {
-        //     var expires = "";
-        // }
-
         let expires = "";
         document.cookie = name + "=" + color + expires + "; path=/";
         cookiecreated = true;
@@ -96,9 +85,9 @@ $(function() {
         }
         $('#messages').append(htmlCode);
 
-        let temp = $('#messages').html();
-        let temp2 = temp.replace(oldcolor, data.color);
-        $('#messages').html(temp2);
+    //    let temp = $('#messages').html();
+    //    let temp2 = temp.replace(oldcolor, data.color);
+    //    $('#messages').html(temp2);
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
         createCookie(thisusername, usercolor);
 
@@ -126,16 +115,10 @@ $(function() {
         htmlCode = '<li> >>>>> Your nick has changed to ' + newname + '</li>';
         thisusername = newname;
         $('#messages').append(htmlCode);
-        console.log('oldname', oldname);
-        console.log('newname', thisusername);
-        let temp = $('#messages').html();
 
-        if (temp.includes(oldname)) {
-            //        console.log('in ehere');
-        }
-        let temp2 = temp.replace(oldname, thisusername);
+    //    let temp2 = temp.replace(oldname, thisusername);
 
-        $('#messages').html(temp2);
+    //    $('#messages').html(temp2);
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
         $('#whoiam').html("Welcome to the Chat " + thisusername);
         updateCookie(thisusername, usercolor);
