@@ -167,7 +167,7 @@ $(function() {
     //Displays all the current users
     socket.on('usernames', function(nicknames) {
         let namearray = [];
-        namearray.push("<h4>Current users:</h4><br>");
+        namearray.push("<h4>Current Users:</h4><br>");
 
         for (let i = 0; i<nicknames.length; i++){
             namearray.push( nicknames[i] + "<br>")
