@@ -1,39 +1,40 @@
-let username = [];
+//let username = [];
 
 $(function() {
     let socket = io.connect('http://localhost:3000');
-    let thisusername;
-    let servercurrenttime;
-    let usercolor;
-    let nameused = false;
-    let cookiecreated;
+    let thisusername; //client nickname
+    let servercurrenttime; // current time
+    let usercolor; //client color
+    let nameused = false; // if the nickname has been taken
+    let cookiecreated; // used to see if the cookie has been created
 
+    //When the page has been loaded, send a message to the server, signalling a new user
     $(document).ready(function() {
 
-        if (parseCookie() != null) {
+        if (parseCookie() != null) { //User has visited before
             cookiecreated = true;
             let temp = parseCookie();
-            socket.emit('new user with cookie', temp, function(data) {
-
-            });
+            socket.emit('new user with cookie', temp, function(data) {});
         } else { //first time visiting the site
             cookiecreated = false;
             socket.emit('new user');
         }
     });
 
+    //update cookies, incase of name or color change
     function updateCookie(name, color) {
         let expires = "";
         document.cookie = name + "=" + color + expires + "; path=/";
-
     }
-    //creates and updates the cookies
+
+    //creates the cookies
     function createCookie(name, color) {
         let expires = "";
         document.cookie = name + "=" + color + expires + "; path=/";
         cookiecreated = true;
     }
 
+    // This function is used to the parse current browser cookie information
     function parseCookie() {
         let cookie = document.cookie.split(';');
         for (let i = 0; i < cookie.length; i++) {
@@ -46,91 +47,106 @@ $(function() {
         return null;
     }
 
+    // This sends the messages that the user has typed to the server
     $('#send-message').submit(function(e) {
         e.preventDefault();
-        username.push(thisusername);
+    //    username.push(thisusername);
         let temp = $('#m').val();
         socket.emit('chat message', temp);
         $('#m').val('');
         return false;
     });
 
+    // This handles showing the previous chat log history to new users
     socket.on('chatlog', function(data) {
         thisusername = data.nick;
         usercolor = data.color;
+
         if (cookiecreated === false) {
             createCookie(thisusername, usercolor);
         }
 
-        $('#whoiam').html("Welcome to the Chat " + thisusername);
+        $('#currentuser').html("Welcome to the Chat " + thisusername);
         if (data.msg.length != 0) {
             for (let i = 0; i < data.msg.length; i++) {
+                let temp = 'id="' + thisusername + '"';
+                let idother = 'id="other"';
+                let idyou = 'id="you"';
+
+                if (data.msg[i].includes(temp)){
+                    data.msg[i] = data.msg[i].replace(idother,idyou);
+                }
+                
                 $('#messages').append(data.msg[i]);
                 $('#messages').scrollTop($('#messages')[0].scrollHeight);
             }
         }
     });
 
+    // This handles the /nickcolor command
     socket.on('changed color', function(data) {
-        // if(usercolor === ''){
-        //     usercolor === data.color;
-        // }
-        //    console.log('user color is ' + usercolor);
         let oldcolor = usercolor;
-        //        console.log('userclor is ', usercolor);
+        let htmlCode;
+
         if (data.color !== usercolor) {
-            //    if (data.msg.toLowerCase().includes('/color')) {
             usercolor = data.color;
             htmlCode = '<li> >>>>> Your nick color has changed to ' + data.color + '</li>';
         }
         $('#messages').append(htmlCode);
-
-    //    let temp = $('#messages').html();
-    //    let temp2 = temp.replace(oldcolor, data.color);
-    //    $('#messages').html(temp2);
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
         createCookie(thisusername, usercolor);
 
     });
 
-
-
+    // This handles the functionality of /nick command and if the name already exists
     socket.on('name exists', function(data) {
         let dataparts = data.msg.split(' ');
-
-        newname = dataparts[1];
-        htmlCode = '<li> >>>>> ' + newname + ' is already in use </li>';
+        let newname = dataparts[1];
+        let htmlCode = '<li> >>>>> ' + newname + ' is already in use </li>';
         $('#messages').append(htmlCode);
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
         nameused = true;
 
     });
+
+    // This handles the functionality of /nick command and if the name does not exist
     socket.on('name DNE', function(data) {
         let oldname = thisusername;
         nameused = false;
         let dataparts = data.msg.split(' ');
 
-        newname = dataparts[1];
+        let newname = dataparts[1];
 
-        htmlCode = '<li> >>>>> Your nick has changed to ' + newname + '</li>';
+        let htmlCode = '<li> >>>>> Your nick has changed to ' + newname + '</li>';
         thisusername = newname;
+
         $('#messages').append(htmlCode);
 
-    //    let temp2 = temp.replace(oldname, thisusername);
+        let temp = $('#messages').html();
+        let re = new RegExp(oldname, 'g');
+        temp = temp.replace(re, newname);
 
-    //    $('#messages').html(temp2);
+        $('#messages').html(temp);
         $('#messages').scrollTop($('#messages')[0].scrollHeight);
-        $('#whoiam').html("Welcome to the Chat " + thisusername);
+        $('#currentuser').html("Welcome to the Chat " + thisusername);
+
         updateCookie(thisusername, usercolor);
         createCookie(oldname, "", -1);
     });
+
+    //This handles when the user sends a message
     socket.on('new message', function(data) {
         let htmlCode
 
+        // Ignores if the user does not enter a message
         if (data.msg.trim() === "") {
             return;
         }
 
+        //input sanitization
+        data.msg = data.msg.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+        console.log('data nick is ', data.nick, 'thisusername is ', thisusername);
         if (data.nick === thisusername) {
             htmlCode = '<li id = "you"><span id="time" style="color:black; font-weight: bold;"> ' + data.time + '</span><span id="' + data.nick + '" style="color: ' + data.color + '; font-weight: bold;"> ' + ' ' + data.nick + '</span><span id="text" style="color: black; font-weight: bold;" >' + ': ' + data.msg + '</span></li>';
             //     $('#messages').append($('<li>').text(msg));
@@ -143,10 +159,12 @@ $(function() {
         }
     });
 
+    //Displays all the current users
     socket.on('usernames', function(nicknames) {
         $('#currentusers').html("Current users: " + nicknames + "<br>");
     });
 
+    //Handles client disconnect
     socket.on('disconnect', function() {
         cookiecreated = true;
     });

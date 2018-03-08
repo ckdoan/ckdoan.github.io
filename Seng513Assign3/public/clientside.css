@@ -43,13 +43,7 @@ form button:hover{
 }
 
 .chatbox {
-    /* background: lightblue; */
-    /* background: rgba(255, 255, 255, 0.05); */
-    /* width: 600px; */
-    /* height: 75%;
-    border-radius: 0.2em;
-    position: relative;
-    overflow: none; */
+
 }
 
 .col-md-12 {
@@ -103,6 +97,7 @@ li {
 li#you {
     max-width: 350px;
     min-height: 50px;
+    font-weight: bold;
 }
 
 li#you:after {
