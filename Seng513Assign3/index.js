@@ -1,3 +1,8 @@
+//Author: Carolyn Doan
+//Assignment 3 for SENG 513
+//User ID: 10122518
+//Lab: B03
+
 //Set up for express and socket.io
 let express = require('express');
 let app = express();

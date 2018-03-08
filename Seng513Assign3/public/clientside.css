@@ -14,7 +14,7 @@ form {
 }
 
 #m {
-        width: 96%;
+    width: 96%;
     padding: 30px;
     overflow: hidden;
 }
@@ -34,7 +34,7 @@ form button {
     position: absolute;
 }
 
-form button:hover{
+form button:hover {
     background-color: lightblue;
 }
 
@@ -42,9 +42,7 @@ form button:hover{
     height: 80%;
 }
 
-.chatbox {
-
-}
+.chatbox {}
 
 .col-md-12 {
     height: 100;
@@ -68,6 +66,7 @@ h1 {
     height: 100%;
     padding: 2px;
     float: right;
+    text-align: center;
 }
 
 #messages {

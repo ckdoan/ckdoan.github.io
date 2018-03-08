@@ -1,4 +1,7 @@
-//let username = [];
+//Author: Carolyn Doan
+//Assignment 3 for SENG 513
+//User ID: 10122518
+//Lab: B03
 
 $(function() {
     let socket = io.connect('http://localhost:3000');
@@ -40,7 +43,6 @@ $(function() {
         for (let i = 0; i < cookie.length; i++) {
             let parts = cookie[i].split('=');
             if (parts.length === 2 && parts[1].length !== 0) {
-                console.log('parts, ', parts.join('='));
                 return parts.join('=');
             }
         }
@@ -50,7 +52,7 @@ $(function() {
     // This sends the messages that the user has typed to the server
     $('#send-message').submit(function(e) {
         e.preventDefault();
-    //    username.push(thisusername);
+        //    username.push(thisusername);
         let temp = $('#m').val();
         socket.emit('chat message', temp);
         $('#m').val('');
@@ -73,10 +75,10 @@ $(function() {
                 let idother = 'id="other"';
                 let idyou = 'id="you"';
 
-                if (data.msg[i].includes(temp)){
-                    data.msg[i] = data.msg[i].replace(idother,idyou);
+                if (data.msg[i].includes(temp)) {
+                    data.msg[i] = data.msg[i].replace(idother, idyou);
                 }
-                
+
                 $('#messages').append(data.msg[i]);
                 $('#messages').scrollTop($('#messages')[0].scrollHeight);
             }
@@ -146,10 +148,8 @@ $(function() {
         //input sanitization
         data.msg = data.msg.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-        console.log('data nick is ', data.nick, 'thisusername is ', thisusername);
         if (data.nick === thisusername) {
             htmlCode = '<li id = "you"><span id="time" style="color:black; font-weight: bold;"> ' + data.time + '</span><span id="' + data.nick + '" style="color: ' + data.color + '; font-weight: bold;"> ' + ' ' + data.nick + '</span><span id="text" style="color: black; font-weight: bold;" >' + ': ' + data.msg + '</span></li>';
-            //     $('#messages').append($('<li>').text(msg));
             $('#messages').append(htmlCode);
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
         } else { // prints the contents sent from other users
@@ -159,9 +159,22 @@ $(function() {
         }
     });
 
+    //returns only unique items of an array
+    function unique(value, index, self){
+        return self.indexOf(value) === index;
+    }
+
     //Displays all the current users
     socket.on('usernames', function(nicknames) {
-        $('#currentusers').html("Current users: " + nicknames + "<br>");
+        let namearray = [];
+        namearray.push("<h4>Current users:</h4><br>");
+
+        for (let i = 0; i<nicknames.length; i++){
+            namearray.push( nicknames[i] + "<br>")
+        }
+        namearray = namearray.filter(unique);
+
+        $('#currentusers').html(namearray);
     });
 
     //Handles client disconnect
