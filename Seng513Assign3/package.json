@@ -3,13 +3,13 @@
     "version": "0.0.1",
     "description": "Web Chat Application",
     "dependencies": {
-        "express": "^4.14.1",
+        "express": "^4.16.4",
         "socket.io": "^1.7.3"
     },
     "scripts": {
         "start": "node index.js"
     },
     "devDependencies": {
-        "nodemon": "^1.15.1"
+        "nodemon": "^1.18.8"
     }
 }
