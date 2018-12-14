@@ -120,3 +120,16 @@ body {
   background-image: linear-gradient(to right, #29335C 0%, #a6c1ee 51%, #a2c0d0 100%);
   display: inline-block;
 }
+
+.capstone{
+  text-align: justify;
+}
+
+.GH{
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px 10px 10px 10px;
+  /* margin-left: auto;
+  margin-right: auto; */
+  /* width: 50%; */
+}
