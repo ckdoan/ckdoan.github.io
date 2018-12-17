@@ -100,7 +100,7 @@ body {
   color: white;
   box-shadow: 0 0 20px #eee;
   border-radius: 10px;
-  background-image: linear-gradient(to right, #f6c0c0 0%, #a6c1ee 51%, #84fab0 100%);
+  background-image: linear-gradient(to right, #990038 0%, #003366 51%, #003366 100%);
   display: inline-block;
 }
 
@@ -119,7 +119,7 @@ body {
   color: white;
   box-shadow: 0 0 20px #eee;
   border-radius: 10px;
-  background-image: linear-gradient(to right, #f6c0c0 0%, #a6c1ee 51%, #fbc2eb 100%);
+  background-image: linear-gradient(to right, #990038 0%, #003366 51%, #003366 100%);
   display: inline-block;
 }
 
