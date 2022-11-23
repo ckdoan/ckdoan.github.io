@@ -4,7 +4,7 @@
     "description": "Web Chat Application",
     "dependencies": {
         "express": "^4.16.4",
-        "socket.io": "^2.4.0"
+        "socket.io": "^2.5.0"
     },
     "scripts": {
         "start": "node index.js"
